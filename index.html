@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF Motorhouse • Premium Used Cars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        
+        :root {
+            --primary: #0A1F44;
+            --accent: #1E5EFF;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .premium-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+
+        .section-header {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #1E5EFF, #0A1F44);
+            border-radius: 3px;
+        }
+
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #1E5EFF;
+        }
+
+        .car-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .car-image-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(10, 31, 68, 0.03));
+            pointer-events: none;
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .modal {
+            animation: modalPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .luxury-gradient {
+            background: linear-gradient(135deg, #0A1F44 0%, #1E3A8A 100%);
+        }
+
+        .spec-box {
+            transition: all 0.2s ease;
+        }
+        
+        .spec-box:hover {
+            background-color: #f1e7ff;
+            transform: translateY(-1px);
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#1E293B] smooth-scroll">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-[#0A1F44] rounded-2xl flex items-center justify-center shadow-inner">
+                        <span class="text-white text-3xl font-black tracking-tighter">FF</span>
+                    </div>
+                    <div>
+                        <div class="font-black text-2xl tracking-[-1.5px] text-[#0A1F44]">FF Motorhouse</div>
+                        <div class="text-[10px] text-gray-400 -mt-1 font-medium tracking-[1.5px]">EST 2012 • MANCHESTER</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="index.html" class="nav-link text-[#0A1F44]">Home</a>
+                    <a href="listings.html" class="nav-link text-[#0A1F44]">Current Listings</a>
+                    <a href="about.html" class="nav-link text-[#0A1F44]">About Us</a>
+                    <a href="#contact" class="nav-link text-[#0A1F44]">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-x-4">
+                    <a href="tel:01615062466" 
+                       class="flex items-center gap-x-2 px-5 py-2 text-sm font-semibold text-[#0A1F44] hover:bg-gray-100 rounded-2xl transition-colors">
+                        <i class="fas fa-phone text-[#1E5EFF]"></i>
+                        <span>0161 506 2466</span>
+                    </a>
+                    <button onclick="showEnquiryModal()"
+                            class="px-6 py-2.5 bg-[#1E5EFF] hover:bg-[#0A1F44] transition-all text-white text-sm font-semibold rounded-2xl flex items-center gap-x-2 shadow-lg shadow-blue-500/20">
+                        <span>Enquire Now</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn"
+                        class="md:hidden w-11 h-11 flex items-center justify-center text-[#0A1F44]">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4">
+            <div class="flex flex-col gap-y-3 text-sm font-medium">
+                <a href="index.html" class="py-2 text-[#0A1F44]">Home</a>
+                <a href="listings.html" class="py-2 text-[#0A1F44]">Current Listings</a>
+                <a href="about.html" class="py-2 text-[#0A1F44]">About Us</a>
+                <a href="#contact" class="py-2 text-[#0A1F44]">Contact</a>
+                <div class="pt-3 border-t flex flex-col gap-y-3">
+                    <a href="tel:01615062466" class="flex items-center gap-x-2 text-[#0A1F44]">
+                        <i class="fas fa-phone text-[#1E5EFF]"></i>
+                        <span>0161 506 2466</span>
+                    </a>
+                    <button onclick="showEnquiryModal()" 
+                            class="w-full py-3 bg-[#1E5EFF] text-white font-semibold rounded-2xl">
+                        Enquire Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Full Screen Split Layout -->
+    <header class="bg-white h-[100dvh] min-h-[700px] flex items-center">
+        <div class="max-w-screen-2xl mx-auto px-8 w-full">
+            <div class="grid md:grid-cols-12 gap-x-8 lg:gap-x-12 items-center">
+                
+                <!-- Left: Text Content -->
+                <div class="md:col-span-7 lg:col-span-6 xl:col-span-5">
+                    
+                    <!-- Small label -->
+                    <div class="flex items-center gap-x-3 mb-6">
+                        <div class="h-px w-8 bg-[#1E5EFF]"></div>
+                        <span class="uppercase tracking-[3px] text-xs font-extrabold text-[#1E5EFF]">MANCHESTER'S PREMIUM CAR DEALER</span>
+                    </div>
+                    
+                    <!-- Headline -->
+                    <h1 class="text-6xl md:text-7xl lg:text-7xl xl:text-7xl font-black tracking-[-3.5px] leading-[0.92] text-[#0A1F44]">
+                        Drive<br>
+                        <span class="text-[#1E5EFF]">Exceptional.</span>
+                    </h1>
+                    
+                    <!-- Subtext -->
+                    <p class="mt-6 max-w-md text-[17px] text-gray-600 leading-relaxed">
+                        Hand-selected premium pre-owned vehicles. 
+                        Every car rigorously inspected. Every experience exceptional.
+                    </p>
+                    
+                    <!-- CTA Button -->
+                    <div class="mt-8">
+                        <a href="listings.html" 
+                           class="group inline-flex items-center justify-center gap-x-3 px-8 py-4 bg-[#1E5EFF] hover:bg-[#0A1F44] text-white font-semibold text-base rounded-2xl transition-all active:scale-[0.985] shadow-lg shadow-blue-500/30">
+                            <span>BROWSE CURRENT LISTINGS</span>
+                            <i class="fas fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="mt-10 flex items-center gap-x-8 text-sm">
+                        <div>
+                            <div class="font-black text-3xl text-[#0A1F44] tracking-tighter">15+</div>
+                            <div class="text-xs text-gray-500 tracking-wider font-medium">YEARS</div>
+                        </div>
+                        <div class="h-8 w-px bg-gray-200"></div>
+                        <div>
+                            <div class="font-black text-3xl text-[#0A1F44] tracking-tighter">500+</div>
+                            <div class="text-xs text-gray-500 tracking-wider font-medium">CARS DELIVERED</div>
+                        </div>
+                        <div class="h-8 w-px bg-gray-200"></div>
+                        <div>
+                            <div class="font-black text-3xl text-[#0A1F44] tracking-tighter">4.9</div>
+                            <div class="flex items-center gap-x-1 text-xs text-gray-500 tracking-wider font-medium">
+                                <span>GOOGLE RATING</span> 
+                                <span class="text-amber-400">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Right: Large Car Image -->
+                <div class="md:col-span-5 lg:col-span-6 xl:col-span-7 mt-10 md:mt-4">
+                    <div class="relative">
+                        <img src="d.png" 
+                             alt="2021 Range Rover Sport - Premium pre-owned vehicle at FF Motorhouse"
+                             class="w-full max-w-[820px] mx-auto md:mx-0 rounded-3xl shadow-2xl object-cover">
+                        
+                        <!-- Subtle badge on image -->
+                        <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur px-4 py-2 rounded-2xl shadow flex items-center gap-x-2 text-sm">
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                            <span class="font-semibold text-[#0A1F44] text-xs tracking-wider">IN STOCK • READY TO VIEW</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Trust / Stats Bar -->
+    <div class="border-b border-gray-100 bg-white">
+        <div class="max-w-screen-2xl mx-auto px-8 py-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8">
+                <div class="flex items-center gap-x-4">
+                    <div class="text-[#1E5EFF]">
+                        <i class="fas fa-shield-alt text-3xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-lg">12-Month Warranty</div>
+                        <div class="text-sm text-gray-500">Included on every vehicle</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-4">
+                    <div class="text-[#1E5EFF]">
+                        <i class="fas fa-check-double text-3xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-lg">150+ Point Inspection</div>
+                        <div class="text-sm text-gray-500">By our master technicians</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-4">
+                    <div class="text-[#1E5EFF]">
+                        <i class="fas fa-handshake text-3xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-lg">Flexible Finance</div>
+                        <div class="text-sm text-gray-500">Tailored to your needs</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-4">
+                    <div class="text-[#1E5EFF]">
+                        <i class="fas fa-sync text-3xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-lg">30-Day Exchange</div>
+                        <div class="text-sm text-gray-500">Peace of mind guarantee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Listings -->
+    <section id="featured" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-10">
+            <div>
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-[#1E5EFF]">HAND SELECTED</div>
+                <h2 class="text-5xl font-black tracking-tighter text-[#0A1F44]">Featured Vehicles</h2>
+            </div>
+            <a href="listings.html" 
+               class="mt-4 md:mt-0 inline-flex items-center text-[#1E5EFF] hover:text-[#0A1F44] font-semibold group">
+                VIEW ALL CURRENT LISTINGS 
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-7">
+            
+            <!-- Card 1: Mercedes -->
+            <div class="premium-card bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+                 data-make="mercedes" data-fuel="diesel" data-price="7995" data-miles="103000">
+                <div class="px-5 pt-5 pb-3 flex items-start justify-between bg-white">
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-9 h-9 bg-[#0A1F44] rounded-2xl flex-shrink-0 flex items-center justify-center">
+                            <span class="text-white text-xl font-black tracking-tighter">FF</span>
+                        </div>
+                        <div class="leading-none">
+                            <div class="font-bold text-[#0A1F44] text-[15px]">FF MOTORHOUSE</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider">EST 2012</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="inline-block px-3.5 py-1 rounded-full bg-[#1E5EFF] text-white text-[10px] font-extrabold tracking-widest">JUST ARRIVED</div>
+                        <div class="text-[9px] text-gray-400 mt-px">IMAGES COMING SOON</div>
+                    </div>
+                </div>
+                
+                <div class="car-image-container">
+                    <img src="images/5aXxj.jpg" alt="2014 Mercedes-Benz CLS Class" 
+                         class="w-full h-[195px] object-cover">
+                </div>
+                
+                <div class="bg-[#0A1F44] px-5 py-[13px] flex items-center justify-between text-white text-sm">
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-phone text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">0161 506 2466</span>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-mobile-alt text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">07356 048811</span>
+                    </div>
+                </div>
+                
+                <div class="p-5">
+                    <div>
+                        <h3 class="font-semibold text-[21px] leading-none tracking-[-0.3px] text-[#0A1F44]">2014 Mercedes-Benz CLS</h3>
+                        <p class="text-sm text-gray-500 mt-1.5 line-clamp-2">3.0 CLS350 CDI V6 AMG Sport Coupe G-Tronic+ Euro 5 4dr</p>
+                    </div>
+                    
+                    <div class="mt-5 grid grid-cols-3 gap-2">
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-tachometer-alt text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">MILEAGE</div>
+                            <div class="font-bold text-sm tracking-tight">103,000 mi</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-gas-pump text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">FUEL TYPE</div>
+                            <div class="font-bold text-sm tracking-tight">Diesel</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-cogs text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">TRANSMISSION</div>
+                            <div class="font-bold text-sm tracking-tight">Automatic</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-end justify-between">
+                        <div>
+                            <div class="text-xs tracking-[1.5px] text-gray-400 font-medium">PAY IN FULL</div>
+                            <div class="text-[29px] font-black text-[#0A1F44] tracking-[-1px]">£7,995</div>
+                        </div>
+                        <button onclick="showVehicleModal(this.closest('.premium-card'))" 
+                                class="px-7 py-[13px] text-sm font-bold bg-[#1E5EFF] hover:bg-[#0A1F44] active:bg-black transition-colors text-white rounded-2xl flex items-center gap-x-2 shadow-md">
+                            VIEW VEHICLE <i class="fas fa-chevron-right text-xs ml-0.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 2: BMW -->
+            <div class="premium-card bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+                 data-make="bmw" data-fuel="diesel" data-price="18995" data-miles="48000">
+                <div class="px-5 pt-5 pb-3 flex items-start justify-between bg-white">
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-9 h-9 bg-[#0A1F44] rounded-2xl flex-shrink-0 flex items-center justify-center">
+                            <span class="text-white text-xl font-black tracking-tighter">FF</span>
+                        </div>
+                        <div class="leading-none">
+                            <div class="font-bold text-[#0A1F44] text-[15px]">FF MOTORHOUSE</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider">EST 2012</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="inline-block px-3.5 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-extrabold tracking-widest">LOW MILEAGE</div>
+                    </div>
+                </div>
+                
+                <div class="car-image-container">
+                    <img src="images/DOxL0.jpg" alt="2020 BMW 5 Series" 
+                         class="w-full h-[195px] object-cover">
+                </div>
+                
+                <div class="bg-[#0A1F44] px-5 py-[13px] flex items-center justify-between text-white text-sm">
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-phone text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">0161 506 2466</span>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-mobile-alt text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">07356 048811</span>
+                    </div>
+                </div>
+                
+                <div class="p-5">
+                    <div>
+                        <h3 class="font-semibold text-[21px] leading-none tracking-[-0.3px] text-[#0A1F44]">2020 BMW 5 Series</h3>
+                        <p class="text-sm text-gray-500 mt-1.5">520d M Sport G30 Saloon • Auto</p>
+                    </div>
+                    
+                    <div class="mt-5 grid grid-cols-3 gap-2">
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-tachometer-alt text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">MILEAGE</div>
+                            <div class="font-bold text-sm tracking-tight">48,000 mi</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-gas-pump text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">FUEL TYPE</div>
+                            <div class="font-bold text-sm tracking-tight">Diesel</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-cogs text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">TRANSMISSION</div>
+                            <div class="font-bold text-sm tracking-tight">Automatic</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-end justify-between">
+                        <div>
+                            <div class="text-xs tracking-[1.5px] text-gray-400 font-medium">PAY IN FULL</div>
+                            <div class="text-[29px] font-black text-[#0A1F44] tracking-[-1px]">£18,995</div>
+                        </div>
+                        <button onclick="showVehicleModal(this.closest('.premium-card'))" 
+                                class="px-7 py-[13px] text-sm font-bold bg-[#1E5EFF] hover:bg-[#0A1F44] active:bg-black transition-colors text-white rounded-2xl flex items-center gap-x-2 shadow-md">
+                            VIEW VEHICLE <i class="fas fa-chevron-right text-xs ml-0.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3: Audi -->
+            <div class="premium-card bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+                 data-make="audi" data-fuel="diesel" data-price="14750" data-miles="62000">
+                <div class="px-5 pt-5 pb-3 flex items-start justify-between bg-white">
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-9 h-9 bg-[#0A1F44] rounded-2xl flex-shrink-0 flex items-center justify-center">
+                            <span class="text-white text-xl font-black tracking-tighter">FF</span>
+                        </div>
+                        <div class="leading-none">
+                            <div class="font-bold text-[#0A1F44] text-[15px]">FF MOTORHOUSE</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider">EST 2012</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-image-container">
+                    <img src="images/s9HHE.jpg" alt="2018 Audi A6" 
+                         class="w-full h-[195px] object-cover">
+                </div>
+                
+                <div class="bg-[#0A1F44] px-5 py-[13px] flex items-center justify-between text-white text-sm">
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-phone text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">0161 506 2466</span>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-mobile-alt text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">07356 048811</span>
+                    </div>
+                </div>
+                
+                <div class="p-5">
+                    <div>
+                        <h3 class="font-semibold text-[21px] leading-none tracking-[-0.3px] text-[#0A1F44]">2018 Audi A6</h3>
+                        <p class="text-sm text-gray-500 mt-1.5">2.0 TDI S line Avant • S Tronic</p>
+                    </div>
+                    
+                    <div class="mt-5 grid grid-cols-3 gap-2">
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-tachometer-alt text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">MILEAGE</div>
+                            <div class="font-bold text-sm tracking-tight">62,000 mi</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-gas-pump text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">FUEL TYPE</div>
+                            <div class="font-bold text-sm tracking-tight">Diesel</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-cogs text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">TRANSMISSION</div>
+                            <div class="font-bold text-sm tracking-tight">Automatic</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-end justify-between">
+                        <div>
+                            <div class="text-xs tracking-[1.5px] text-gray-400 font-medium">PAY IN FULL</div>
+                            <div class="text-[29px] font-black text-[#0A1F44] tracking-[-1px]">£14,750</div>
+                        </div>
+                        <button onclick="showVehicleModal(this.closest('.premium-card'))" 
+                                class="px-7 py-[13px] text-sm font-bold bg-[#1E5EFF] hover:bg-[#0A1F44] active:bg-black transition-colors text-white rounded-2xl flex items-center gap-x-2 shadow-md">
+                            VIEW VEHICLE <i class="fas fa-chevron-right text-xs ml-0.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 4: Range Rover -->
+            <div class="premium-card bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+                 data-make="land-rover" data-fuel="diesel" data-price="42995" data-miles="35000">
+                <div class="px-5 pt-5 pb-3 flex items-start justify-between bg-white">
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-9 h-9 bg-[#0A1F44] rounded-2xl flex-shrink-0 flex items-center justify-center">
+                            <span class="text-white text-xl font-black tracking-tighter">FF</span>
+                        </div>
+                        <div class="leading-none">
+                            <div class="font-bold text-[#0A1F44] text-[15px]">FF MOTORHOUSE</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider">EST 2012</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="inline-block px-3.5 py-1 rounded-full bg-[#1E5EFF] text-white text-[10px] font-extrabold tracking-widest">PREMIUM</div>
+                    </div>
+                </div>
+                
+                <div class="car-image-container">
+                    <img src="images/RO3it.jpg" alt="2021 Range Rover Sport" 
+                         class="w-full h-[195px] object-cover">
+                </div>
+                
+                <div class="bg-[#0A1F44] px-5 py-[13px] flex items-center justify-between text-white text-sm">
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-phone text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">0161 506 2466</span>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <i class="fas fa-mobile-alt text-[#1E5EFF]"></i>
+                        <span class="font-medium tracking-tight">07356 048811</span>
+                    </div>
+                </div>
+                
+                <div class="p-5">
+                    <div>
+                        <h3 class="font-semibold text-[21px] leading-none tracking-[-0.3px] text-[#0A1F44]">2021 Range Rover Sport</h3>
+                        <p class="text-sm text-gray-500 mt-1.5">3.0 SDV6 HSE Dynamic • Auto</p>
+                    </div>
+                    
+                    <div class="mt-5 grid grid-cols-3 gap-2">
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-tachometer-alt text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">MILEAGE</div>
+                            <div class="font-bold text-sm tracking-tight">35,000 mi</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-gas-pump text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">FUEL TYPE</div>
+                            <div class="font-bold text-sm tracking-tight">Diesel</div>
+                        </div>
+                        <div class="spec-box bg-gray-50 rounded-2xl py-3 px-2 text-center">
+                            <i class="fas fa-cogs text-[#1E5EFF] text-lg mb-1"></i>
+                            <div class="text-[10px] text-gray-500">TRANSMISSION</div>
+                            <div class="font-bold text-sm tracking-tight">Automatic</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-end justify-between">
+                        <div>
+                            <div class="text-xs tracking-[1.5px] text-gray-400 font-medium">PAY IN FULL</div>
+                            <div class="text-[29px] font-black text-[#0A1F44] tracking-[-1px]">£42,995</div>
+                        </div>
+                        <button onclick="showVehicleModal(this.closest('.premium-card'))" 
+                                class="px-7 py-[13px] text-sm font-bold bg-[#1E5EFF] hover:bg-[#0A1F44] active:bg-black transition-colors text-white rounded-2xl flex items-center gap-x-2 shadow-md">
+                            VIEW VEHICLE <i class="fas fa-chevron-right text-xs ml-0.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="text-center mt-10">
+            <a href="listings.html" 
+               class="inline-flex items-center justify-center gap-x-2 px-8 py-3.5 border border-gray-300 hover:border-[#1E5EFF] hover:text-[#1E5EFF] font-semibold rounded-2xl transition-all text-sm tracking-wider">
+                EXPLORE THE FULL COLLECTION <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-white border-y border-gray-100 py-16">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="text-center mb-12">
+                <div class="text-[#1E5EFF] text-xs tracking-[3px] font-bold">REAL STORIES</div>
+                <h2 class="text-4xl font-black tracking-tight text-[#0A1F44]">What Our Clients Say</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-[#F8FAFC] p-8 rounded-3xl">
+                    <div class="flex text-amber-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="italic text-gray-600">"The entire experience was exceptional. My new CLS is perfect and the aftercare has been second to none. Truly a premium dealer."</p>
+                    <div class="mt-6 flex items-center gap-x-3">
+                        <img src="https://picsum.photos/id/1005/40/40" class="rounded-full w-9 h-9 object-cover" alt="">
+                        <div>
+                            <div class="font-semibold">James Harrington</div>
+                            <div class="text-xs text-gray-500">CEO, Harrington Capital</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-[#F8FAFC] p-8 rounded-3xl">
+                    <div class="flex text-amber-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="italic text-gray-600">"Bought my Range Rover Sport from FF Motorhouse last month. The level of detail and care they put into every car is incredible. Highly recommended."</p>
+                    <div class="mt-6 flex items-center gap-x-3">
+                        <img src="https://picsum.photos/id/1011/40/40" class="rounded-full w-9 h-9 object-cover" alt="">
+                        <div>
+                            <div class="font-semibold">Dr. Sarah Patel</div>
+                            <div class="text-xs text-gray-500">Consultant Surgeon</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-[#F8FAFC] p-8 rounded-3xl">
+                    <div class="flex text-amber-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="italic text-gray-600">"Seamless process from start to finish. They found me the exact specification I wanted and handled the finance beautifully. My Tesla is a dream."</p>
+                    <div class="mt-6 flex items-center gap-x-3">
+                        <img src="https://picsum.photos/id/1009/40/40" class="rounded-full w-9 h-9 object-cover" alt="">
+                        <div>
+                            <div class="font-semibold">Michael Chen</div>
+                            <div class="text-xs text-gray-500">Founder, Vertex Ventures</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="luxury-gradient rounded-[3rem] px-10 py-16 text-white text-center">
+            <h2 class="text-5xl font-black tracking-tighter mb-4">Ready to find your perfect car?</h2>
+            <p class="max-w-md mx-auto text-white/80 mb-8">Speak with one of our specialists today. We can help you find the right vehicle and the right finance package.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="showEnquiryModal()" 
+                        class="px-10 py-4 bg-white text-[#0A1F44] font-bold rounded-2xl hover:bg-gray-100 transition-colors">
+                    SPEAK TO A SPECIALIST
+                </button>
+                <a href="listings.html" 
+                   class="px-10 py-4 border border-white/40 hover:bg-white/10 font-semibold rounded-2xl transition-colors flex items-center justify-center gap-x-2">
+                    BROWSE ALL CARS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-[#0A1F44] text-white/90 pt-14 pb-8">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-y-12">
+            <div class="md:col-span-5">
+                <div class="flex items-center gap-x-3 mb-5">
+                    <div class="w-9 h-9 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center">
+                        <span class="text-white text-2xl font-black tracking-tighter">FF</span>
+                    </div>
+                    <div class="font-black text-3xl tracking-[-1.2px]">FF Motorhouse</div>
+                </div>
+                <p class="max-w-xs text-sm text-white/70">Manchester's premier destination for exceptional pre-owned luxury and performance vehicles.</p>
+                
+                <div class="mt-8 flex gap-x-4">
+                    <a href="#" class="w-9 h-9 bg-white/10 hover:bg-white/20 flex items-center justify-center rounded-2xl transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 bg-white/10 hover:bg-white/20 flex items-center justify-center rounded-2xl transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="w-9 h-9 bg-white/10 hover:bg-white/20 flex items-center justify-center rounded-2xl transition-colors"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-3">
+                <div class="font-semibold tracking-wider text-xs mb-4 text-white/60">SHOWROOM</div>
+                <div class="space-y-1 text-sm">
+                    <div>Prestige House</div>
+                    <div>45 Deansgate</div>
+                    <div>Manchester, M3 2BW</div>
+                </div>
+                <div class="mt-5 text-sm">
+                    <a href="tel:01615062466" class="hover:text-white block">0161 506 2466</a>
+                    <a href="mailto:hello@ffmotorhouse.co.uk" class="hover:text-white block">hello@ffmotorhouse.co.uk</a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-4">
+                <div class="font-semibold tracking-wider text-xs mb-4 text-white/60">OPENING HOURS</div>
+                <div class="grid grid-cols-2 gap-y-1 text-sm">
+                    <div>Monday – Friday</div>
+                    <div class="text-right font-medium">9:00am – 6:30pm</div>
+                    <div>Saturday</div>
+                    <div class="text-right font-medium">9:00am – 5:00pm</div>
+                    <div>Sunday</div>
+                    <div class="text-right font-medium">By Appointment</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-16 pt-8 border-t border-white/10 text-center text-xs text-white/50">
+            © 2026 FF Motorhouse Ltd. All rights reserved. • Company No. 08429102
+        </div>
+    </footer>
+
+    <!-- Vehicle Detail Modal -->
+    <div id="vehicle-modal" onclick="if (event.target.id === 'vehicle-modal') hideVehicleModal()" 
+         class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="modal bg-white w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl">
+            
+            <!-- Modal Header -->
+            <div class="px-8 py-5 flex items-center justify-between border-b">
+                <div id="modal-header-content" class="flex items-center gap-x-4"></div>
+                <button onclick="hideVehicleModal()" class="text-3xl leading-none text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            
+            <div class="p-8">
+                <div class="grid md:grid-cols-5 gap-8">
+                    <!-- Image -->
+                    <div class="md:col-span-3">
+                        <img id="modal-image" class="w-full aspect-video object-cover rounded-2xl shadow-inner" alt="">
+                    </div>
+                    
+                    <!-- Quick Info -->
+                    <div class="md:col-span-2">
+                        <div id="modal-price" class="text-5xl font-black tracking-tighter text-[#0A1F44]"></div>
+                        <div id="modal-subtitle" class="text-gray-500 mt-1"></div>
+                        
+                        <div class="mt-6 grid grid-cols-3 gap-3" id="modal-specs">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <h4 class="font-semibold tracking-wider text-sm mb-3">VEHICLE DESCRIPTION</h4>
+                    <p id="modal-description" class="text-gray-600 leading-relaxed"></p>
+                </div>
+                
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button onclick="bookTestDrive()" 
+                            class="flex-1 py-4 border border-[#1E5EFF] text-[#1E5EFF] hover:bg-[#1E5EFF] hover:text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-x-2">
+                        <i class="fas fa-calendar-check"></i> 
+                        <span>BOOK A TEST DRIVE</span>
+                    </button>
+                    
+                    <button onclick="contactAboutVehicle()" 
+                            class="flex-1 py-4 bg-[#1E5EFF] hover:bg-[#0A1F44] text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-x-2">
+                        <span>REQUEST MORE INFORMATION</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enquiry Modal -->
+    <div id="enquiry-modal" onclick="if (event.target.id === 'enquiry-modal') hideEnquiryModal()" 
+         class="hidden fixed inset-0 bg-black/60 backdrop-blur z-[110] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-lg rounded-3xl p-9">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <div class="font-black text-3xl tracking-tight">Let's find your car</div>
+                    <div class="text-gray-500">Our team will get back to you within 2 hours</div>
+                </div>
+                <button onclick="hideEnquiryModal()" class="text-3xl text-gray-300 hover:text-gray-500">&times;</button>
+            </div>
+            
+            <form id="enquiry-form" onsubmit="submitEnquiry(event)">
+                <div class="space-y-5">
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-xs tracking-wider font-medium text-gray-500 block mb-1.5">FIRST NAME</label>
+                            <input type="text" required class="w-full border border-gray-200 focus:border-[#1E5EFF] px-4 py-3 rounded-2xl outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs tracking-wider font-medium text-gray-500 block mb-1.5">LAST NAME</label>
+                            <input type="text" required class="w-full border border-gray-200 focus:border-[#1E5EFF] px-4 py-3 rounded-2xl outline-none text-sm">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-xs tracking-wider font-medium text-gray-500 block mb-1.5">EMAIL ADDRESS</label>
+                        <input type="email" required class="w-full border border-gray-200 focus:border-[#1E5EFF] px-4 py-3 rounded-2xl outline-none text-sm">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-xs tracking-wider font-medium text-gray-500 block mb-1.5">PHONE NUMBER</label>
+                            <input type="tel" required value="07" class="w-full border border-gray-200 focus:border-[#1E5EFF] px-4 py-3 rounded-2xl outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs tracking-wider font-medium text-gray-500 block mb-1.5">PREFERRED CONTACT</label>
+                            <select class="w-full border border-gray-200 focus:border-[#1E5EFF] px-4 py-3 rounded-2xl outline-none text-sm bg-white">
+                                <option>Phone</option>
+                                <option>Email</option>
+                                <option>WhatsApp</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-xs tracking-wider font-medium text-gray-500 block mb-1.5">WHAT ARE YOU LOOKING FOR?</label>
+                        <textarea rows="3" placeholder="E.g. Low mileage SUV under £30k..." class="w-full border border-gray-200 focus:border-[#1E5EFF] px-4 py-3 rounded-2xl outline-none text-sm resize-y"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex gap-x-3">
+                    <button type="button" onclick="hideEnquiryModal()" 
+                            class="flex-1 py-4 text-sm font-semibold border border-gray-200 hover:bg-gray-50 rounded-2xl">CANCEL</button>
+                    <button type="submit" 
+                            class="flex-1 py-4 text-sm font-bold bg-[#1E5EFF] text-white rounded-2xl hover:bg-[#0A1F44] transition-colors">SEND ENQUIRY</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#1E5EFF');
+        }
+        
+        // Mobile menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+        }
+        
+        // Vehicle Modal
+        let currentVehicleCard = null;
+        
+        function showVehicleModal(cardElement) {
+            currentVehicleCard = cardElement;
+            
+            const modal = document.getElementById('vehicle-modal');
+            const headerContent = document.getElementById('modal-header-content');
+            const image = document.getElementById('modal-image');
+            const priceEl = document.getElementById('modal-price');
+            const subtitleEl = document.getElementById('modal-subtitle');
+            const specsContainer = document.getElementById('modal-specs');
+            const descEl = document.getElementById('modal-description');
+            
+            // Extract data from card
+            const title = cardElement.querySelector('h3').innerText;
+            const subtitle = cardElement.querySelector('p').innerText;
+            const priceText = cardElement.querySelector('.text-\\[29px\\]').innerText;
+            const imgSrc = cardElement.querySelector('img').src;
+            
+            // Specs
+            const specBoxes = cardElement.querySelectorAll('.spec-box');
+            const miles = specBoxes[0].querySelector('.font-bold').innerText;
+            const fuel = specBoxes[1].querySelector('.font-bold').innerText;
+            const transmission = specBoxes[2].querySelector('.font-bold').innerText;
+            
+            // Build header
+            headerContent.innerHTML = `
+                <div>
+                    <div class="font-black text-3xl tracking-[-1.5px] text-[#0A1F44]">${title}</div>
+                    <div class="text-xs text-emerald-600 font-semibold flex items-center gap-x-1 mt-1">
+                        <i class="fas fa-check-circle"></i> 
+                        <span>IN STOCK • READY FOR DELIVERY</span>
+                    </div>
+                </div>
+            `;
+            
+            image.src = imgSrc;
+            priceEl.innerHTML = priceText;
+            subtitleEl.innerHTML = subtitle;
+            
+            // Specs boxes
+            specsContainer.innerHTML = `
+                <div class="bg-gray-50 rounded-2xl p-4 text-center">
+                    <div class="text-xs text-gray-500">MILEAGE</div>
+                    <div class="font-black text-xl tracking-tight mt-px">${miles}</div>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center">
+                    <div class="text-xs text-gray-500">FUEL</div>
+                    <div class="font-black text-xl tracking-tight mt-px">${fuel}</div>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center">
+                    <div class="text-xs text-gray-500">GEARBOX</div>
+                    <div class="font-black text-xl tracking-tight mt-px">${transmission}</div>
+                </div>
+            `;
+            
+            // Description (custom per car)
+            let description = "This exceptional example has been through our rigorous 150-point inspection and comes with a comprehensive 12-month warranty. Full service history and meticulous maintenance records available.";
+            
+            if (title.includes("Mercedes")) {
+                description = "Stunning 2014 Mercedes-Benz CLS 350 CDI AMG Sport. Finished in Obsidian Black with full black leather interior. This vehicle has been lovingly maintained and benefits from a full Mercedes service history. The perfect blend of luxury, performance and practicality.";
+            } else if (title.includes("BMW")) {
+                description = "Immaculate 2020 BMW 520d M Sport. One previous owner with full BMW service history. Loaded with specification including Harman Kardon sound system, panoramic roof and the latest iDrive technology. Truly stunning condition throughout.";
+            } else if (title.includes("Audi")) {
+                description = "Beautiful 2018 Audi A6 Avant S line. Finished in Glacier White with full black leather. Excellent specification including Matrix LED headlights, virtual cockpit and Bang & Olufsen sound. A true driver's car with practicality of an estate.";
+            } else if (title.includes("Range Rover")) {
+                description = "2021 Range Rover Sport HSE Dynamic in stunning British Racing Green. Full Land Rover service history. Top specification with 22\" alloys, Meridian sound, heated & cooled seats and the latest Pivi Pro infotainment. Outstanding condition.";
+            }
+            
+            descEl.innerHTML = description;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function hideVehicleModal() {
+            const modal = document.getElementById('vehicle-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function bookTestDrive() {
+            hideVehicleModal();
+            setTimeout(() => {
+                alert("Thank you! A member of our team will call you shortly to arrange your test drive at a time convenient for you.");
+            }, 350);
+        }
+        
+        function contactAboutVehicle() {
+            hideVehicleModal();
+            setTimeout(() => {
+                const enquiryModal = document.getElementById('enquiry-modal');
+                enquiryModal.classList.remove('hidden');
+                enquiryModal.classList.add('flex');
+            }, 400);
+        }
+        
+        // Enquiry modal
+        function showEnquiryModal() {
+            const modal = document.getElementById('enquiry-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function hideEnquiryModal() {
+            const modal = document.getElementById('enquiry-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function submitEnquiry(e) {
+            e.preventDefault();
+            const modal = document.getElementById('enquiry-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            
+            setTimeout(() => {
+                const successDiv = document.createElement('div');
+                successDiv.className = `fixed bottom-6 right-6 bg-emerald-600 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-x-3 z-[200]`;
+                successDiv.innerHTML = `
+                    <i class="fas fa-check-circle text-2xl"></i>
+                    <div>
+                        <div class="font-bold">Enquiry received!</div>
+                        <div class="text-sm opacity-90">We'll contact you within 2 hours.</div>
+                    </div>
+                `;
+                document.body.appendChild(successDiv);
+                
+                setTimeout(() => {
+                    successDiv.style.transition = 'all 0.4s ease';
+                    successDiv.style.opacity = '0';
+                    setTimeout(() => successDiv.remove(), 400);
+                }, 3800);
+            }, 600);
+        }
+        
+        // Keyboard escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const vehicleModal = document.getElementById('vehicle-modal');
+                const enquiryModal = document.getElementById('enquiry-modal');
+                
+                if (!vehicleModal.classList.contains('hidden')) {
+                    hideVehicleModal();
+                } else if (!enquiryModal.classList.contains('hidden')) {
+                    hideEnquiryModal();
+                }
+            }
+        });
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            
+            // Optional: subtle animation on cards load
+            const cards = document.querySelectorAll('.premium-card');
+            cards.forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    card.style.transitionDelay = (i * 80) + 'ms';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 120);
+            });
+            
+            // Easter egg: logo click
+            const logo = document.querySelector('.flex.items-center.gap-x-3');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    logo.style.transitionDuration = '150ms';
+                    logo.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        logo.style.transform = 'scale(1)';
+                    }, 180);
+                });
+            }
+            
+            console.log('%c[FF Motorhouse] Premium website initialized successfully.', 'color:#64748b');
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>
