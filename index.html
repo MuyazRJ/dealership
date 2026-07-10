@@ -320,17 +320,40 @@
     .nav-links a.active::after { transform: scaleX(1); }
     .nav-links a.active { color: var(--ink); }
 
+    /* Pill call-to-action */
     .nav-cta {
-      background: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(180deg, var(--blue-light) -30%, var(--blue) 55%, var(--blue-dark) 175%);
       color: #fff !important;
-      padding: 11px 22px;
-      border-radius: var(--r-sm);
+      padding: 10px 20px;
+      border-radius: 999px;
       font-weight: 600;
       font-size: 0.85rem;
-      transition: background 0.22s, transform 0.15s var(--ease);
+      box-shadow: 0 2px 6px var(--blue-glow), 0 8px 20px -8px var(--blue-glow);
+      transition: transform 0.15s var(--ease), box-shadow 0.25s var(--ease), filter 0.2s;
     }
     .nav-cta::after { display: none !important; }
-    .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+    .nav-cta svg { width: 15px; height: 15px; }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      filter: saturate(1.06);
+      box-shadow: 0 4px 10px var(--blue-glow), 0 14px 28px -10px var(--blue-glow);
+    }
+
+    /* Right-hand group (mobile only): round call button + hamburger */
+    .nav-right { display: none; align-items: center; gap: 10px; }
+    .nav-call {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      color: #fff;
+      background: linear-gradient(180deg, var(--blue-light) -30%, var(--blue) 55%, var(--blue-dark) 175%);
+      box-shadow: 0 2px 6px var(--blue-glow), 0 8px 18px -8px var(--blue-glow);
+      transition: transform 0.15s var(--ease), filter 0.2s;
+    }
+    .nav-call:hover { transform: translateY(-1px); filter: saturate(1.06); }
 
     .nav-toggle {
       display: none;
@@ -686,6 +709,29 @@
     .btn-card:hover { filter: brightness(1.06); }
     .btn-card:hover svg { transform: translateX(3px); }
 
+    /* Carousel controls (mobile only — hidden until the grid becomes a slider) */
+    .car-carousel-nav { display: none; align-items: center; justify-content: center; gap: 18px; margin-top: 24px; }
+    .carousel-btn {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--ink);
+      display: grid; place-items: center;
+      box-shadow: var(--sh-sm);
+      transition: transform 0.15s var(--ease), border-color 0.2s, color 0.2s, opacity 0.2s;
+    }
+    .carousel-btn:hover { color: var(--blue); border-color: var(--blue-light); }
+    .carousel-btn:active { transform: scale(0.94); }
+    .carousel-btn:disabled { opacity: 0.35; pointer-events: none; }
+    .carousel-count {
+      font-family: var(--ff-mono);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      min-width: 3.5ch; text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
     /* ══ About ══════════════════════════════════════════ */
     #about { background: var(--surface); }
     .about-grid {
@@ -882,8 +928,9 @@
       section { padding: 84px 0; }
       .container { padding: 0 24px; }
 
-      /* Nav → slide-down panel */
+      /* Nav → slide-down panel; show call button + hamburger */
       .nav-toggle { display: grid; }
+      .nav-right  { display: flex; }
       .nav-links {
         position: fixed;
         top: var(--nav-h); left: 0; right: 0;
@@ -906,11 +953,11 @@
       .nav-links a { display: block; padding: 16px 2px; font-size: 1rem; }
       .nav-links a::after { display: none; }
       .nav-links .nav-cta {
-        display: block;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
         padding: 15px 22px;
         font-size: 0.95rem;
-        border-radius: var(--r);
       }
 
       /* Hero → stacked, car below copy */
@@ -947,7 +994,22 @@
     @media (max-width: 640px) {
       section { padding: 72px 0; }
       .section-head { margin-bottom: 40px; }
-      .car-grid { grid-template-columns: 1fr; gap: 22px; }
+
+      /* Featured cars → swipeable carousel, one card at a time */
+      .car-grid {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding: 6px 2px 10px;
+        scrollbar-width: none;
+      }
+      .car-grid::-webkit-scrollbar { display: none; }
+      .car-card { flex: 0 0 88%; scroll-snap-align: center; }
+      .car-carousel-nav { display: flex; }
+
       .contact-list { grid-template-columns: 1fr; }
       .contact-actions .btn-primary,
       .contact-actions .btn-ghost { flex: 1 1 100%; }
@@ -1004,6 +1066,15 @@
     <symbol id="i-check" viewBox="0 0 16 16">
       <path d="M3 8.5 6.2 11.5 13 4.5" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M6.5 3h3l1.5 4.5-2 1.4a12 12 0 0 0 5.6 5.6l1.4-2 4.5 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24">
+      <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24">
+      <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
   </svg>
 
   <!-- ── Navigation ── -->
@@ -1018,13 +1089,22 @@
         <li><a href="#featured">Featured Cars</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="tel:+441610000000" class="nav-cta">Call the showroom</a></li>
+        <li><a href="tel:+441610000000" class="nav-cta">
+          <svg width="15" height="15" aria-hidden="true"><use href="#i-phone"></use></svg>
+          Call the showroom
+        </a></li>
       </ul>
 
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span>
-        <span class="sr-only">Open menu</span>
-      </button>
+      <!-- Mobile: round tap-to-call + hamburger -->
+      <div class="nav-right">
+        <a href="tel:+441610000000" class="nav-call" aria-label="Call the showroom">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-phone"></use></svg>
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span>
+          <span class="sr-only">Open menu</span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -1117,7 +1197,7 @@
           <!-- Car 1 -->
           <article class="car-card reveal">
             <div class="media car-media">
-              <img src="images/car-1.jpg" alt="2020 BMW 3 Series 320d M Sport" loading="lazy">
+              <img src="images/car-1.jpg" alt="2013 Volkswagen Golf 1.4 TSI GT" loading="lazy">
               <span class="ph-badge">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
                 <code>images/car-1.jpg</code>
@@ -1146,7 +1226,7 @@
           <!-- Car 2 -->
           <article class="car-card reveal reveal-delay-1">
             <div class="media car-media">
-              <img src="images/car-2.jpg" alt="2021 Audi A5 Sportback 40 TFSI S line" loading="lazy">
+              <img src="images/car-2.jpg" alt="2018 Nissan Juke 1.5 dCi Tekna" loading="lazy">
               <span class="ph-badge">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
                 <code>images/car-2.jpg</code>
@@ -1174,7 +1254,7 @@
           <!-- Car 3 -->
           <article class="car-card reveal reveal-delay-2">
             <div class="media car-media">
-              <img src="images/car-3.jpg" alt="2019 Mercedes-Benz C-Class C 220 d AMG Line" loading="lazy">
+              <img src="images/car-3.jpg" alt="2018 Peugeot 2008 1.2 PureTech Allure" loading="lazy">
               <span class="ph-badge">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
                 <code>images/car-3.jpg</code>
@@ -1202,7 +1282,7 @@
           <!-- Car 4 -->
           <article class="car-card reveal">
             <div class="media car-media">
-              <img src="images/car-4.jpg" alt="2019 SEAT Leon" loading="lazy">
+              <img src="images/car-4.jpg" alt="2019 SEAT Leon 1.5 TSI FR Sport" loading="lazy">
               <span class="ph-badge">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
                 <code>images/car-4.jpg</code>
@@ -1231,7 +1311,7 @@
           <!-- Car 5 -->
           <article class="car-card reveal reveal-delay-1">
             <div class="media car-media">
-              <img src="images/car-5.jpg" alt="2015 BMW 3 Series" loading="lazy">
+              <img src="images/car-5.jpg" alt="2015 BMW 3 Series 320d M Sport xDrive" loading="lazy">
               <span class="ph-badge">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
                 <code>images/car-5.jpg</code>
@@ -1259,7 +1339,7 @@
           <!-- Car 6 -->
           <article class="car-card reveal reveal-delay-2">
             <div class="media car-media">
-              <img src="images/car-6.jpg" alt="2019 BMW 3 Series" loading="lazy">
+              <img src="images/car-6.jpg" alt="2019 BMW 3 Series 330i M Sport" loading="lazy">
               <span class="ph-badge">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
                 <code>images/car-6.jpg</code>
@@ -1284,6 +1364,17 @@
             </div>
           </article>
 
+        </div>
+
+        <!-- Carousel controls (mobile) -->
+        <div class="car-carousel-nav">
+          <button class="carousel-btn" id="car-prev" aria-label="Previous car">
+            <svg width="18" height="18" aria-hidden="true"><use href="#i-chev-left"></use></svg>
+          </button>
+          <span class="carousel-count"><span id="car-index">1</span> / <span id="car-total">6</span></span>
+          <button class="carousel-btn" id="car-next" aria-label="Next car">
+            <svg width="18" height="18" aria-hidden="true"><use href="#i-chev-right"></use></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -1508,6 +1599,35 @@
         img.addEventListener('error', () => settle(false), { once: true });
       }
     });
+
+    // ── Featured cars: mobile carousel arrows ──
+    (function () {
+      const grid = document.querySelector('.car-grid');
+      const prev = document.getElementById('car-prev');
+      const next = document.getElementById('car-next');
+      const indexEl = document.getElementById('car-index');
+      const totalEl = document.getElementById('car-total');
+      if (!grid || !prev || !next) return;
+
+      const cards = [...grid.querySelectorAll('.car-card')];
+      if (totalEl) totalEl.textContent = cards.length;
+
+      const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth);
+      const current = () => Math.round(grid.scrollLeft / step());
+
+      const update = () => {
+        const i = Math.min(Math.max(current(), 0), cards.length - 1);
+        indexEl.textContent = i + 1;
+        prev.disabled = i <= 0;
+        next.disabled = i >= cards.length - 1;
+      };
+
+      prev.addEventListener('click', () => grid.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => grid.scrollBy({ left:  step(), behavior: 'smooth' }));
+      grid.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
 
     // ── Footer year ──
     document.getElementById('year').textContent = new Date().getFullYear();
