@@ -202,6 +202,20 @@
     .media.is-filled .ph-badge { display: none; }
     .media.is-empty img { display: none; }
 
+    /* Hero vehicle: when a real image is supplied, show it in full — never
+       cropped to the placeholder frame. Only affects the hero, not car cards. */
+    .media.media--hero img { object-fit: contain; }
+    .media.media--hero.is-filled {
+      aspect-ratio: auto;
+      overflow: visible;
+      background: none;
+    }
+    .media.media--hero.is-filled img {
+      position: static;
+      width: 100%;
+      height: auto;
+    }
+
     /* ── Buttons ── */
     .btn-primary {
       background: linear-gradient(180deg, var(--blue-light) -40%, var(--blue) 45%, var(--blue-dark) 160%);
@@ -320,40 +334,38 @@
     .nav-links a.active::after { transform: scaleX(1); }
     .nav-links a.active { color: var(--ink); }
 
-    /* Pill call-to-action */
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(180deg, var(--blue-light) -30%, var(--blue) 55%, var(--blue-dark) 175%);
-      color: #fff !important;
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      box-shadow: 0 2px 6px var(--blue-glow), 0 8px 20px -8px var(--blue-glow);
-      transition: transform 0.15s var(--ease), box-shadow 0.25s var(--ease), filter 0.2s;
-    }
-    .nav-cta::after { display: none !important; }
-    .nav-cta svg { width: 15px; height: 15px; }
-    .nav-cta:hover {
-      transform: translateY(-1px);
-      filter: saturate(1.06);
-      box-shadow: 0 4px 10px var(--blue-glow), 0 14px 28px -10px var(--blue-glow);
-    }
-
-    /* Right-hand group (mobile only): round call button + hamburger */
-    .nav-right { display: none; align-items: center; gap: 10px; }
+    /* Round call button (desktop + mobile) with an "open now" green light */
+    .nav-right { display: flex; align-items: center; gap: 10px; }
     .nav-call {
-      width: 42px; height: 42px;
+      position: relative;
+      width: 44px; height: 44px;
       border-radius: 50%;
       display: grid; place-items: center;
       color: #fff;
-      background: linear-gradient(180deg, var(--blue-light) -30%, var(--blue) 55%, var(--blue-dark) 175%);
-      box-shadow: 0 2px 6px var(--blue-glow), 0 8px 18px -8px var(--blue-glow);
-      transition: transform 0.15s var(--ease), filter 0.2s;
+      background: var(--ink);
+      transition: background 0.22s, transform 0.15s var(--ease), box-shadow 0.25s var(--ease);
     }
-    .nav-call:hover { transform: translateY(-1px); filter: saturate(1.06); }
+    .nav-call svg { width: 18px; height: 18px; }
+    .nav-call:hover {
+      background: var(--blue);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px -8px var(--blue-glow);
+    }
+    .nav-call-dot {
+      position: absolute;
+      top: 1px; right: 1px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #22c55e;
+      border: 2px solid var(--surface);
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.55);
+      animation: callPulse 1.8s ease-out infinite;
+    }
+    @keyframes callPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
 
     .nav-toggle {
       display: none;
@@ -1060,34 +1072,93 @@
       }
       #nav.open .nav-links { opacity: 1; transform: none; pointer-events: auto; }
       .nav-links li { border-bottom: 1px solid var(--border); }
-      .nav-links li:last-child { border-bottom: none; padding-top: 18px; }
+      .nav-links li:last-child { border-bottom: none; }
       .nav-links a { display: block; padding: 16px 2px; font-size: 1rem; }
       .nav-links a::after { display: none; }
-      .nav-links .nav-cta {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        padding: 15px 22px;
-        font-size: 0.95rem;
-      }
 
-      /* Hero → stacked, car below copy */
-      #hero { min-height: auto; padding-bottom: 72px; }
+      /* ── Hero (mobile redesign) — message-led, car framed mid-hero ── */
+      #hero {
+        min-height: auto;
+        padding: calc(var(--nav-h) + 26px) 0 58px;
+        background:
+          linear-gradient(180deg, var(--blue-wash) 0%, rgba(237,242,254,0) 42%),
+          #ffffff;
+      }
       .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-        padding-top: 44px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0 22px;
       }
-      .hero-content { max-width: 100%; }
-      .hero-h1 { font-size: clamp(2.6rem, 9vw, 4rem); }
-      .hero-sub { margin-bottom: 32px; }
-      .hero-actions .btn-primary,
-      .hero-actions .btn-ghost { flex: 1 1 200px; }
-      .hero-stats { margin-top: 44px; }
+      /* Promote the copy block's children into the flex column so the car
+         can sit between the intro and the buttons. Desktop is untouched. */
+      .hero-content { display: contents; }
 
+      .hero-label {
+        order: 1;
+        margin-bottom: 16px;
+        font-size: 0.64rem;
+        letter-spacing: 0.1em;
+      }
+      .hero-label::before { width: 22px; }
+      .hero-h1 {
+        order: 2;
+        font-size: clamp(2.4rem, 9.5vw, 3.4rem);
+        line-height: 1.0;
+        margin-bottom: 18px;
+      }
+      .hero-sub {
+        order: 3;
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 100%;
+        margin-bottom: 30px;
+      }
+
+      /* Framed car card */
       .hero-car { display: none; }
-      .hero-car-mobile { display: block; }
-      .hero-car-mobile .media { aspect-ratio: 16 / 11; }
+      .hero-car-mobile {
+        display: block;
+        order: 4;
+        position: relative;
+        margin-bottom: 34px;
+      }
+      .hero-car-mobile .media {
+        aspect-ratio: 16 / 11;
+        border-radius: var(--r-xl);
+        box-shadow: var(--sh-lg);
+      }
+      .hero-car-mobile::after {   /* soft floor shadow under the card */
+        content: '';
+        position: absolute;
+        left: 15%; right: 15%;
+        bottom: -13px;
+        height: 24px;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(10,22,40,0.16), transparent 72%);
+        filter: blur(2px);
+        pointer-events: none;
+      }
+
+      /* Buttons — full-width, stacked */
+      .hero-actions { order: 5; gap: 12px; margin-bottom: 0; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-ghost {
+        flex: 1 1 100%;
+        padding: 16px 24px;
+        font-size: 1rem;
+      }
+
+      /* Stats as a single card */
+      .hero-stats {
+        order: 6;
+        margin: 34px 0 0;
+        padding: 20px 10px;
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        background: var(--surface);
+        box-shadow: var(--sh-sm);
+        max-width: 100%;
+      }
 
       /* About → stacked */
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1141,6 +1212,7 @@
       .container { padding: 0 18px; }
       .hero-grid { padding-left: 18px; padding-right: 18px; }
       .hero-h1 { font-size: clamp(2.2rem, 11vw, 3rem); }
+      .hero-stats { padding: 18px 6px; }
       .hero-stat-val { font-size: 1.5rem; }
       .hero-stat-label { font-size: 0.58rem; letter-spacing: 0.08em; }
       .hero-stats > div + div { padding-left: 16px; }
@@ -1206,20 +1278,17 @@
 
       <ul class="nav-links" id="nav-menu">
         <li><a href="#hero">Home</a></li>
-        <li><a href="#featured">Featured Cars</a></li>
+        <li><a href="stock.html">Stock</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#reviews">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="tel:+441610000000" class="nav-cta">
-          <svg width="15" height="15" aria-hidden="true"><use href="#i-phone"></use></svg>
-          Call the showroom
-        </a></li>
       </ul>
 
-      <!-- Mobile: round tap-to-call + hamburger -->
+      <!-- Round tap-to-call with "open now" green light -->
       <div class="nav-right">
-        <a href="tel:+441610000000" class="nav-call" aria-label="Call the showroom">
+        <a href="tel:+441610000000" class="nav-call" aria-label="Call the showroom — open now" title="Call the showroom">
           <svg width="18" height="18" aria-hidden="true"><use href="#i-phone"></use></svg>
+          <span class="nav-call-dot" aria-hidden="true"></span>
         </a>
         <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
           <span></span><span></span>
@@ -1307,7 +1376,7 @@
               Full listings, photos and finance quotes live on Auto Trader.
             </p>
           </div>
-          <a class="stock-link reveal reveal-delay-3" href="https://www.autotrader.co.uk/dealers/REPLACE-WITH-DEALER-ID" target="_blank" rel="noopener noreferrer">
+          <a class="stock-link reveal reveal-delay-3" href="stock.html" target="_blank" rel="noopener noreferrer">
             View all stock
             <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
           </a>
@@ -1695,7 +1764,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="https://www.autotrader.co.uk/dealers/REPLACE-WITH-DEALER-ID" target="_blank" rel="noopener noreferrer">All stock on Auto Trader</a></li>
+            <li><a href="stock.html">View all stock</a></li>
           </ul>
         </nav>
 
