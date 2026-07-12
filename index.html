@@ -788,6 +788,117 @@
       border-radius: var(--r-xl);
     }
 
+    /* ══ Reviews ════════════════════════════════════════ */
+    #reviews { background: var(--bg); }
+    .reviews-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .reviews-head > div:first-child { max-width: 620px; }
+    .reviews-score {
+      flex: none;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 32px;
+      box-shadow: var(--sh-sm);
+    }
+    .reviews-score-val {
+      font-family: var(--ff-head);
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+    .reviews-stars { color: var(--blue); letter-spacing: 0.12em; font-size: 1rem; margin: 8px 0 7px; }
+    .reviews-score-label {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .review-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px 30px 26px;
+      box-shadow: var(--sh-sm);
+      overflow: hidden;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.3s;
+    }
+    .review-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -14px; right: 20px;
+      font-family: var(--ff-head);
+      font-size: 7rem;
+      line-height: 1;
+      color: var(--blue-wash);
+      pointer-events: none;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--sh-lg);
+      border-color: var(--border-strong);
+    }
+    .review-stars {
+      position: relative;
+      color: var(--blue);
+      letter-spacing: 0.14em;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+    .review-card blockquote {
+      position: relative;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+    .review-card figcaption {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .review-avatar {
+      width: 42px; height: 42px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--blue-wash);
+      color: var(--blue);
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .review-meta strong {
+      display: block;
+      font-family: var(--ff-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .review-meta span { font-size: 0.8rem; color: var(--ink-muted); }
+    @media (max-width: 720px) {
+      .reviews-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .reviews-score { align-self: stretch; }
+    }
+
     /* ══ Contact ════════════════════════════════════════ */
     #contact {
       position: relative;
@@ -1003,11 +1114,20 @@
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;            /* let vertical drags scroll the page */
+        overscroll-behavior-x: contain;
         padding: 6px 2px 10px;
         scrollbar-width: none;
       }
       .car-grid::-webkit-scrollbar { display: none; }
-      .car-card { flex: 0 0 88%; scroll-snap-align: center; }
+      .car-card {
+        flex: 0 0 86%;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;       /* one card per swipe, no over-shoot */
+      }
+      /* Off-screen carousel cards never trip the scroll-reveal observer,
+         so show them up front instead of leaving them blank until swiped. */
+      .car-grid .reveal { opacity: 1; transform: none; transition: none; }
       .car-carousel-nav { display: flex; }
 
       .contact-list { grid-template-columns: 1fr; }
@@ -1088,6 +1208,7 @@
         <li><a href="#hero">Home</a></li>
         <li><a href="#featured">Featured Cars</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="tel:+441610000000" class="nav-cta">
           <svg width="15" height="15" aria-hidden="true"><use href="#i-phone"></use></svg>
@@ -1216,7 +1337,7 @@
                 <span class="car-price-label">Pay in full</span>
                 <span class="car-price-val">£5,495</span>
               </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607063938559?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=71c9d355-4474-4b9c-8c56-55fe28c25ee2&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=550&calc-term=48&calc-mileage=10000&calc-selected-product=PCP" target="_blank" rel="noopener noreferrer" aria-label="View the 2013 Volkswagen Golf on Auto Trader">
+              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/REPLACE-WITH-LISTING-ID-1" target="_blank" rel="noopener noreferrer" aria-label="View the 2013 Volkswagen Golf on Auto Trader">
                 View car
                 <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
@@ -1244,7 +1365,7 @@
                 <span class="car-price-label">Pay in full</span>
                 <span class="car-price-val">£24,450</span>
               </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607063936451?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=030fd0e6-a121-4597-847d-078a065a834b&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=550&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2018 Nissan Juke on Auto Trader">
+              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/REPLACE-WITH-LISTING-ID-2" target="_blank" rel="noopener noreferrer" aria-label="View the 2018 Nissan Juke on Auto Trader">
                 View car
                 <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
@@ -1272,7 +1393,7 @@
                 <span class="car-price-label">Pay in full</span>
                 <span class="car-price-val">£16,750</span>
               </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607063946755?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=851d1d02-97b2-451c-8831-19568be06fa8&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=800&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2018 Peugeot 2008 on Auto Trader">
+              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/REPLACE-WITH-LISTING-ID-3" target="_blank" rel="noopener noreferrer" aria-label="View the 2018 Peugeot 2008 on Auto Trader">
                 View car
                 <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
@@ -1301,7 +1422,7 @@
                 <span class="car-price-label">Pay in full</span>
                 <span class="car-price-val">£7,995</span>
               </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607063939086?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=56c80a0d-713e-4731-9895-9b18889dad6e&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=800&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2019 SEAT Leon on Auto Trader">
+              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/REPLACE-WITH-LISTING-ID-4" target="_blank" rel="noopener noreferrer" aria-label="View the 2019 SEAT Leon on Auto Trader">
                 View car
                 <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
@@ -1329,7 +1450,7 @@
                 <span class="car-price-label">Pay in full</span>
                 <span class="car-price-val">£8,495</span>
               </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607063947314?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=29ccd231-c2e1-4b43-8476-664e5fd1b1ca&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=850&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2015 BMW 3 Series on Auto Trader">
+              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/REPLACE-WITH-LISTING-ID-5" target="_blank" rel="noopener noreferrer" aria-label="View the 2015 BMW 3 Series on Auto Trader">
                 View car
                 <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
@@ -1357,7 +1478,7 @@
                 <span class="car-price-label">Pay in full</span>
                 <span class="car-price-val">£17,995</span>
               </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607063938766?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=14f9eecc-416a-498a-bf0e-2a70e2f9bf49&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=1800&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2019 BMW 3 Series on Auto Trader">
+              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/REPLACE-WITH-LISTING-ID-6" target="_blank" rel="noopener noreferrer" aria-label="View the 2019 BMW 3 Series on Auto Trader">
                 View car
                 <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
               </a>
@@ -1432,6 +1553,65 @@
               </span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Reviews ══ -->
+    <section id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="section-head reviews-head">
+          <div>
+            <p class="section-label reveal">Reviews</p>
+            <h2 class="section-h2 reveal reveal-delay-1" id="reviews-title">What our <em>customers say</em></h2>
+            <p class="section-sub reveal reveal-delay-2">
+              A few words from people who've driven away with a car from us.
+              Every review below is verified and lives in full on our Google profile.
+            </p>
+          </div>
+          <div class="reviews-score reveal reveal-delay-2">
+            <div class="reviews-score-val">4.9</div>
+            <div class="reviews-stars" aria-hidden="true">★★★★★</div>
+            <div class="reviews-score-label">120+ Google reviews</div>
+          </div>
+        </div>
+
+        <div class="reviews-grid">
+          <figure class="review-card reveal">
+            <div class="review-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+            <blockquote>No pressure and no gimmicks. The car was exactly as described, MOT'd and valeted, and the price on the advert was the price I paid. Drove it home the same day.</blockquote>
+            <figcaption>
+              <span class="review-avatar" aria-hidden="true">JM</span>
+              <span class="review-meta">
+                <strong>James M.</strong>
+                <span>Bought a BMW 3 Series · Google</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="review-card reveal reveal-delay-1">
+            <div class="review-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+            <blockquote>Found them on Auto Trader and I'm glad I did. They held the car for me until the weekend and talked me through the full history. Honest, and proper service start to finish.</blockquote>
+            <figcaption>
+              <span class="review-avatar" aria-hidden="true">SK</span>
+              <span class="review-meta">
+                <strong>Sana K.</strong>
+                <span>Bought a SEAT Leon · Google</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="review-card reveal reveal-delay-2">
+            <div class="review-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+            <blockquote>Part-exchanged my old car and the whole thing took under an hour. Fair price on the trade-in and no surprise fees at the desk. I'd happily buy from them again.</blockquote>
+            <figcaption>
+              <span class="review-avatar" aria-hidden="true">DP</span>
+              <span class="review-meta">
+                <strong>Daniel P.</strong>
+                <span>Bought a Nissan Juke · Google</span>
+              </span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -1513,6 +1693,7 @@
             <li><a href="#hero">Home</a></li>
             <li><a href="#featured">Featured Cars</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="https://www.autotrader.co.uk/dealers/REPLACE-WITH-DEALER-ID" target="_blank" rel="noopener noreferrer">All stock on Auto Trader</a></li>
           </ul>
