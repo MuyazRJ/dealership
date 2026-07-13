@@ -395,6 +395,10 @@
       from { opacity: 0; transform: translateX(48px); }
       to   { opacity: 1; transform: translateX(0); }
     }
+    @keyframes heroCarRise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     #hero {
       position: relative;
@@ -1126,6 +1130,8 @@
         order: 4;
         position: relative;
         margin-bottom: 34px;
+        animation: heroCarRise 0.7s var(--ease) both,
+                   float 5s ease-in-out 1.2s infinite;
       }
       .hero-car-mobile .media:not(.is-filled) {
         aspect-ratio: 16 / 11;
