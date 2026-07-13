@@ -1087,6 +1087,8 @@
       .hero-grid {
         display: flex;
         flex-direction: column;
+        align-items: stretch;   /* override desktop align-items:center so items are full-width, not shrink-wrapped & centred */
+        text-align: left;
         gap: 0;
         padding: 0 22px;
       }
@@ -1103,9 +1105,11 @@
       .hero-label::before { width: 22px; }
       .hero-h1 {
         order: 2;
-        font-size: clamp(2.4rem, 9.5vw, 3.4rem);
-        line-height: 1.0;
-        margin-bottom: 18px;
+        font-size: clamp(2.3rem, 9vw, 3.25rem);
+        line-height: 1.06;
+        letter-spacing: -0.03em;
+        text-wrap: balance;
+        margin-bottom: 22px;
       }
       .hero-sub {
         order: 3;
