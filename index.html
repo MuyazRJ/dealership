@@ -1198,11 +1198,11 @@
         display: flex;
         gap: 16px;
         overflow-x: auto;
+        overflow-y: hidden;             /* stop CSS computing overflow-y to auto → no phantom vertical scroll region */
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        touch-action: pan-x;            /* let vertical drags scroll the page */
-        overscroll-behavior-x: contain;
+        touch-action: pan-x;            /* this strip only pans horizontally; vertical drags scroll the page */
+        overscroll-behavior: contain;
         padding: 6px 2px 10px;
         scrollbar-width: none;
       }
