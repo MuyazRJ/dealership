@@ -139,27 +139,13 @@
     .reveal-delay-3 { transition-delay: 0.24s; }
     .reveal-delay-4 { transition-delay: 0.32s; }
 
-    /* ── Image placeholders ─────────────────────────────────
-       Drop real files at the paths shown and they take over
-       automatically. Nothing here generates artwork.        */
+    /* ── Images ── */
     .media {
       position: relative;
       overflow: hidden;
       border-radius: var(--r-lg);
-      background:
-        linear-gradient(135deg, var(--blue-wash) 0%, #ffffff 62%, var(--blue-wash) 100%);
-      box-shadow: inset 0 0 0 1px var(--border);
-      display: grid;
-      place-items: center;
+      background: var(--blue-wash);
       isolation: isolate;
-    }
-    .media::before {
-      content: '';
-      position: absolute;
-      inset: 12px;
-      border: 1px dashed var(--border-strong);
-      border-radius: calc(var(--r-lg) - 6px);
-      pointer-events: none;
     }
     .media img {
       position: absolute;
@@ -168,52 +154,6 @@
       height: 100%;
       object-fit: cover;
       z-index: 1;
-    }
-    .ph-badge {
-      position: relative;
-      z-index: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      padding: 20px;
-      text-align: center;
-      color: var(--ink-faint);
-    }
-    .ph-badge svg { width: 30px; height: 30px; opacity: 0.7; }
-    .ph-badge code {
-      font-family: var(--ff-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.01em;
-      color: var(--ink-muted);
-      background: rgba(255,255,255,0.72);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 5px 12px;
-    }
-    .ph-badge small {
-      font-size: 0.66rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-    .media.is-filled { background: none; box-shadow: none; }
-    .media.is-filled::before { display: none; }
-    .media.is-filled .ph-badge { display: none; }
-    .media.is-empty img { display: none; }
-
-    /* Hero vehicle: when a real image is supplied, show it in full — never
-       cropped to the placeholder frame. Only affects the hero, not car cards. */
-    .media.media--hero img { object-fit: contain; }
-    .media.media--hero.is-filled {
-      aspect-ratio: auto;
-      overflow: visible;
-      background: none;
-    }
-    .media.media--hero.is-filled img {
-      position: static;
-      width: 100%;
-      height: auto;
     }
 
     /* ── Buttons ── */
@@ -541,9 +481,17 @@
       animation: carSlideIn 0.95s var(--ease) 0.25s both,
                  float 5s ease-in-out 1.2s infinite;
     }
+    /* Hero vehicle: always shown in full at its natural proportions */
     .media--hero {
-      aspect-ratio: 16 / 10;
-      border-radius: var(--r-xl);
+      overflow: visible;
+      background: none;
+      border-radius: 0;
+    }
+    .media--hero img {
+      position: static;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
     .hero-car-inner::after {   /* showroom floor shadow */
       content: '';
@@ -1139,11 +1087,6 @@
         animation: heroCarRise 0.7s var(--ease) both,
                    float 5s ease-in-out 1.2s infinite;
       }
-      .hero-car-mobile .media:not(.is-filled) {
-        aspect-ratio: 16 / 11;
-        border-radius: var(--r-xl);
-        box-shadow: var(--sh-lg);
-      }
       .hero-car-mobile::after {   /* soft floor shadow under the card */
         content: '';
         position: absolute;
@@ -1264,9 +1207,6 @@
     <symbol id="i-gear" viewBox="0 0 24 24">
       <path d="M6 7v10M12 7v10M18 7v10M6 7h12"/><circle cx="6" cy="18" r="1.4"/><circle cx="12" cy="18" r="1.4"/><circle cx="18" cy="18" r="1.4"/><circle cx="6" cy="5.6" r="1.4"/>
     </symbol>
-    <symbol id="i-photo" viewBox="0 0 24 24">
-      <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" fill="none" stroke-width="1.4"/><circle cx="8.5" cy="10" r="1.5" stroke="currentColor" fill="none" stroke-width="1.4"/><path d="m4.5 17 4.8-4.4a2 2 0 0 1 2.7 0L19.5 19" stroke="currentColor" fill="none" stroke-width="1.4" stroke-linecap="round"/>
-    </symbol>
     <symbol id="i-arrow" viewBox="0 0 16 16">
       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
@@ -1293,7 +1233,7 @@
 
       <ul class="nav-links" id="nav-menu">
         <li><a href="#hero">Home</a></li>
-        <li><a href="stock.html">Stock</a></li>
+        <li><a href="dealership.html">Dealership</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#reviews">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -1354,26 +1294,16 @@
         <!-- Hero vehicle — desktop -->
         <div class="hero-car">
           <div class="hero-car-inner">
-            <div class="media media--hero" role="img" aria-label="Placeholder for the hero vehicle photograph">
+            <div class="media media--hero">
               <img src="images/hero-car.png" alt="Featured vehicle at FF Motorhouse">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <small>Hero vehicle image</small>
-                <code>images/hero-car.png</code>
-              </span>
             </div>
           </div>
         </div>
 
         <!-- Hero vehicle — mobile (front view) -->
         <div class="hero-car-mobile">
-          <div class="media media--hero" role="img" aria-label="Placeholder for the hero vehicle photograph">
+          <div class="media media--hero">
             <img src="images/hero-car-mobile.png" alt="Featured vehicle at FF Motorhouse">
-            <span class="ph-badge">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-              <small>Hero vehicle image</small>
-              <code>images/hero-car-mobile.png</code>
-            </span>
           </div>
         </div>
       </div>
@@ -1391,8 +1321,8 @@
               Full listings, photos and finance quotes live on Auto Trader.
             </p>
           </div>
-          <a class="stock-link reveal reveal-delay-3" href="stock.html" target="_blank" rel="noopener noreferrer">
-            View all stock
+          <a class="stock-link reveal reveal-delay-3" href="dealership.html">
+            View all cars
             <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
           </a>
         </div>
@@ -1403,10 +1333,6 @@
           <article class="car-card reveal">
             <div class="media car-media">
               <img src="images/car-1.jpg" alt="2013 Volkswagen Golf 1.4 TSI GT" loading="lazy">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <code>images/car-1.jpg</code>
-              </span>
               <span class="car-flag car-flag--new">Just arrived</span>
             </div>
             <div class="car-body">
@@ -1432,10 +1358,6 @@
           <article class="car-card reveal reveal-delay-1">
             <div class="media car-media">
               <img src="images/car-2.jpg" alt="2018 Nissan Juke 1.5 dCi Tekna" loading="lazy">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <code>images/car-2.jpg</code>
-              </span>
             </div>
             <div class="car-body">
               <h3 class="car-name">2018 Nissan Juke</h3>
@@ -1460,10 +1382,6 @@
           <article class="car-card reveal reveal-delay-2">
             <div class="media car-media">
               <img src="images/car-3.jpg" alt="2018 Peugeot 2008 1.2 PureTech Allure" loading="lazy">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <code>images/car-3.jpg</code>
-              </span>
             </div>
             <div class="car-body">
               <h3 class="car-name">2018 Peugeot 2008</h3>
@@ -1488,10 +1406,6 @@
           <article class="car-card reveal">
             <div class="media car-media">
               <img src="images/car-4.jpg" alt="2019 SEAT Leon 1.5 TSI FR Sport" loading="lazy">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <code>images/car-4.jpg</code>
-              </span>
               <span class="car-flag">Low mileage</span>
             </div>
             <div class="car-body">
@@ -1517,10 +1431,6 @@
           <article class="car-card reveal reveal-delay-1">
             <div class="media car-media">
               <img src="images/car-5.jpg" alt="2015 BMW 3 Series 320d M Sport xDrive" loading="lazy">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <code>images/car-5.jpg</code>
-              </span>
             </div>
             <div class="car-body">
               <h3 class="car-name">2015 BMW 3 Series</h3>
@@ -1545,10 +1455,6 @@
           <article class="car-card reveal reveal-delay-2">
             <div class="media car-media">
               <img src="images/car-6.jpg" alt="2019 BMW 3 Series 330i M Sport" loading="lazy">
-              <span class="ph-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"></use></svg>
-                <code>images/car-6.jpg</code>
-              </span>
             </div>
             <div class="car-body">
               <h3 class="car-name">2019 BMW 3 Series</h3>
@@ -1778,7 +1684,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="stock.html">View all stock</a></li>
+            <li><a href="dealership.html">Dealership</a></li>
           </ul>
         </nav>
 
@@ -1848,21 +1754,6 @@
     }, { rootMargin: '-45% 0px -50% 0px' });
 
     sections.forEach(s => sectionObserver.observe(s));
-
-    // ── Image placeholders ──
-    // Real photos dropped at the paths above replace the placeholder panel
-    // automatically. If a file is missing, the labelled panel stays visible.
-    document.querySelectorAll('.media img').forEach(img => {
-      const media = img.closest('.media');
-      const settle = (loaded) => media.classList.add(loaded ? 'is-filled' : 'is-empty');
-
-      if (img.complete) {
-        settle(img.naturalWidth > 0);
-      } else {
-        img.addEventListener('load', () => settle(true), { once: true });
-        img.addEventListener('error', () => settle(false), { once: true });
-      }
-    });
 
     // ── Featured cars: mobile carousel arrows ──
     // The swipe itself is native browser scrolling — no touch handlers here on
