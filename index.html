@@ -1193,19 +1193,28 @@
       section { padding: 72px 0; }
       .section-head { margin-bottom: 40px; }
 
-      /* Featured cars → JS swiper (transform-based, so a finger on a card
-         can never block vertical page scrolling) */
-      .car-viewport { overflow: hidden; }
+      /* Featured cars → native horizontal scroller.
+         Deliberately NO touch-action and NO overscroll-behavior here: the
+         browser's own gesture disambiguation already routes vertical drags to
+         the page and horizontal drags to this strip. Overriding it broke one
+         axis or the other. */
       .car-grid {
         display: flex;
         gap: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;         /* else overflow-y computes to auto → phantom vertical scroll region */
+        scroll-snap-type: x mandatory;
         padding: 6px 2px 10px;
-        touch-action: pan-y;            /* vertical drags always scroll the page */
-        will-change: transform;
+        scrollbar-width: none;
       }
-      .car-grid.animating { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-      .car-card { flex: 0 0 86%; }
-      /* Cards shown up front (the reveal observer can't see off-screen ones) */
+      .car-grid::-webkit-scrollbar { display: none; }
+      .car-card {
+        flex: 0 0 86%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;   /* one card per swipe, no over-shoot */
+      }
+      /* Off-screen carousel cards never trip the scroll-reveal observer,
+         so show them up front instead of leaving them blank until swiped. */
       .car-grid .reveal { opacity: 1; transform: none; transition: none; }
       .car-carousel-nav { display: flex; }
 
@@ -1858,7 +1867,9 @@
       }
     });
 
-    // ── Featured cars: mobile swiper (transform-based, direction-locked) ──
+    // ── Featured cars: mobile carousel arrows ──
+    // The swipe itself is native browser scrolling — no touch handlers here on
+    // purpose. Intercepting touches is what broke vertical/horizontal scrolling.
     (function () {
       const grid = document.querySelector('.car-grid');
       const prev = document.getElementById('car-prev');
@@ -1867,94 +1878,35 @@
       const totalEl = document.getElementById('car-total');
       if (!grid || !prev || !next) return;
 
-      // Wrap the strip in a clipping viewport so we can slide it with transform.
-      const viewport = document.createElement('div');
-      viewport.className = 'car-viewport';
-      grid.parentNode.insertBefore(viewport, grid);
-      viewport.appendChild(grid);
-
       const cards = [...grid.querySelectorAll('.car-card')];
       if (totalEl) totalEl.textContent = cards.length;
-      const mq = window.matchMedia('(max-width: 640px)');
+
       const clamp = (i) => Math.min(Math.max(i, 0), cards.length - 1);
+      const originOf = (i) => cards[i].offsetLeft - cards[0].offsetLeft;
 
-      let index = 0;
-
-      // px to translate so card i is centred — clamped so the first card sits
-      // at the left edge and the last at the right, like a native carousel.
-      const maxOffset = () => Math.max(0, grid.scrollWidth - viewport.clientWidth);
-      const offsetFor = (i) => {
-        const card = cards[i];
-        const centre = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
-        return Math.min(Math.max(centre, 0), maxOffset());
+      // nearest card to the current scroll position
+      const current = () => {
+        let best = 0, bestDist = Infinity;
+        cards.forEach((c, i) => {
+          const d = Math.abs(originOf(i) - grid.scrollLeft);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        return best;
       };
 
-      const render = (animate) => {
-        grid.classList.toggle('animating', !!animate);
-        grid.style.transform = 'translateX(' + (-offsetFor(index)) + 'px)';
-        indexEl.textContent = index + 1;
-        prev.disabled = index <= 0;
-        next.disabled = index >= cards.length - 1;
+      const update = () => {
+        const i = current();
+        indexEl.textContent = i + 1;
+        prev.disabled = i <= 0;
+        next.disabled = i >= cards.length - 1;
       };
-      const goTo = (i) => { index = clamp(i); render(true); };
+      const goTo = (i) => grid.scrollTo({ left: originOf(clamp(i)), behavior: 'smooth' });
 
-      prev.addEventListener('click', () => goTo(index - 1));
-      next.addEventListener('click', () => goTo(index + 1));
-
-      // Direction-locked swipe. Vertical → untouched, page scrolls (pan-y).
-      // Horizontal → we slide the track via transform (no native scroll involved).
-      let startX = 0, startY = 0, base = 0, dir = null, active = false;
-
-      grid.addEventListener('touchstart', (e) => {
-        if (!mq.matches || e.touches.length !== 1) { active = false; return; }
-        active = true; dir = null;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        base = offsetFor(index);
-        grid.classList.remove('animating');
-      }, { passive: true });
-
-      grid.addEventListener('touchmove', (e) => {
-        if (!active || e.touches.length !== 1) return;
-        const dx = e.touches[0].clientX - startX;
-        const dy = e.touches[0].clientY - startY;
-
-        if (dir === null) {
-          if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;   // wait for clear intent
-          dir = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
-        }
-
-        if (dir === 'h') {
-          e.preventDefault();
-          grid.style.transform = 'translateX(' + (-(base - dx)) + 'px)';
-        }
-        // dir === 'v' → do nothing; the browser scrolls the page
-      }, { passive: false });
-
-      const end = (e) => {
-        if (!active) return;
-        active = false;
-        if (dir === 'h') {
-          const dx = e.changedTouches ? e.changedTouches[0].clientX - startX : 0;
-          const threshold = viewport.clientWidth * 0.15;
-          if (dx <= -threshold) goTo(index + 1);
-          else if (dx >= threshold) goTo(index - 1);
-          else render(true);   // snap back
-        }
-        dir = null;
-      };
-      grid.addEventListener('touchend', end);
-      grid.addEventListener('touchcancel', end);
-
-      // Enable on mobile, reset to the plain grid on desktop.
-      const sync = () => {
-        if (mq.matches) { index = clamp(index); render(false); }
-        else { grid.style.transform = ''; grid.classList.remove('animating'); }
-      };
-      window.addEventListener('resize', sync);
-      if (mq.addEventListener) mq.addEventListener('change', sync);
-      else if (mq.addListener) mq.addListener(sync);
-      sync();
+      prev.addEventListener('click', () => goTo(current() - 1));
+      next.addEventListener('click', () => goTo(current() + 1));
+      grid.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+      window.addEventListener('resize', update);
+      update();
     })();
 
     // ── Footer year ──
