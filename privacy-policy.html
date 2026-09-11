@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FF Motorhouse</title>
+  <meta name="description" content="FF Motorhouse privacy policy — how we collect, use and protect your personal information.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://ffmotorhouse.co.uk/privacy-policy.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:            #f6f8fc;
+      --surface:       #ffffff;
+
+      --ink:           #0a1628;
+      --ink-soft:      #16233a;
+      --ink-muted:     #56657e;
+      --ink-faint:     #93a0b4;
+
+      --blue:          #1750d6;
+      --blue-dark:     #0f3aa6;
+      --blue-light:    #4c86ff;
+      --blue-wash:     #edf2fe;
+      --blue-glow:     rgba(23, 80, 214, 0.18);
+
+      --border:        #e3e9f3;
+      --border-strong: #d2dbe9;
+
+      --nav-h: 72px;
+
+      --r-sm: 8px;
+      --r:    12px;
+      --r-lg: 18px;
+
+      --sh-sm: 0 1px 2px rgba(10,22,40,0.04), 0 2px 8px rgba(10,22,40,0.04);
+
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+      --ff-head: 'Manrope', sans-serif;
+      --ff-body: 'Inter', sans-serif;
+      --ff-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+    ul, ol { list-style: none; }
+
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+    /* ══ Navigation (matches main site) ══ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 24px rgba(10,22,40,0.06);
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      font-family: var(--ff-head);
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      white-space: nowrap;
+    }
+    .nav-logo .mark { color: var(--blue); letter-spacing: -0.05em; }
+    .nav-logo .word { font-weight: 600; }
+    .nav-back {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-back:hover { color: var(--blue); text-decoration: none; }
+
+    /* ══ Policy content ══ */
+    main {
+      padding: calc(var(--nav-h) + 56px) 0 96px;
+    }
+    .policy-header {
+      max-width: 760px;
+      margin: 0 auto 48px;
+      padding: 0 32px;
+    }
+    .policy-label {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .policy-label::before { content: ''; width: 22px; height: 1px; background: var(--blue); flex: none; }
+    .policy-header h1 {
+      font-family: var(--ff-head);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .policy-updated { color: var(--ink-muted); font-size: 0.95rem; }
+
+    .policy-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      box-shadow: var(--sh-sm);
+      padding: clamp(28px, 5vw, 56px);
+    }
+
+    .policy-card h2 {
+      font-family: var(--ff-head);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 40px 0 14px;
+    }
+    .policy-card h2:first-child { margin-top: 0; }
+    .policy-card h3 {
+      font-family: var(--ff-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 24px 0 10px;
+    }
+    .policy-card p { color: var(--ink-soft); margin-bottom: 14px; }
+    .policy-card ul, .policy-card ol { margin: 0 0 14px 0; }
+    .policy-card li {
+      color: var(--ink-soft);
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .policy-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px; top: 10px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue-light);
+    }
+    .policy-card ol { counter-reset: item; }
+    .policy-card ol li { counter-increment: item; }
+    .policy-card ol li::before {
+      content: counter(item) '.';
+      position: absolute;
+      left: 0; top: 0;
+      font-weight: 600;
+      color: var(--blue);
+      font-size: 0.9em;
+    }
+    .policy-card strong { color: var(--ink); }
+    .policy-card a { font-weight: 600; word-break: break-word; }
+
+    .policy-callout {
+      background: var(--blue-wash);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r);
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+    .policy-callout p { margin-bottom: 0; color: var(--ink-soft); font-size: 0.95rem; }
+    .policy-callout p + p { margin-top: 10px; }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin-bottom: 8px;
+    }
+    .toc a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      padding: 6px 0;
+    }
+    .toc a:hover { color: var(--blue); }
+
+    hr.policy-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 36px 0;
+    }
+
+    .contact-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px 22px;
+      margin-top: 8px;
+    }
+    .contact-box p { margin-bottom: 6px; font-size: 0.95rem; }
+    .contact-box p:last-child { margin-bottom: 0; }
+
+    /* ══ Footer (matches main site) ══ */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.6);
+      padding: 56px 0 28px;
+      margin-top: 64px;
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+    .footer-bottom a { color: rgba(255,255,255,0.42); transition: color 0.2s; }
+    .footer-bottom a:hover { color: #fff; text-decoration: none; }
+    footer p.footer-intro { font-size: 0.85rem; margin-bottom: 4px; }
+
+    @media (max-width: 640px) {
+      .policy-header, .policy-card { padding-left: 20px; padding-right: 20px; }
+      .policy-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html#hero" class="nav-logo" aria-label="FF Motorhouse home">
+        <span class="mark">FF</span><span class="word">Motorhouse</span>
+      </a>
+      <a href="index.html" class="nav-back" aria-label="Back to FF Motorhouse home">← Back to site</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="policy-header">
+      <div class="policy-label">Legal</div>
+      <h1>Privacy Policy</h1>
+      <p class="policy-updated">Last updated: 11 September 2026</p>
+    </div>
+
+    <div class="policy-card">
+
+      <p>FF Motor House Ltd ("FF Motorhouse", "we", "us", "our") is committed to protecting your privacy. This
+      Privacy Policy explains what personal information we collect, how we use it, who we share it with, and the
+      rights you have over your information when you visit our website or apply for finance through us.</p>
+
+      <div class="toc" aria-label="Section links">
+        <a href="#who-we-are">Who we are</a>
+        <a href="#information-we-collect">Information we collect</a>
+        <a href="#how-we-use-it">How we use it</a>
+        <a href="#third-parties">Third parties</a>
+        <a href="#cookies">Cookies</a>
+        <a href="#data-retention">Data retention</a>
+        <a href="#your-rights">Your rights</a>
+        <a href="#security">Security</a>
+        <a href="#changes">Changes</a>
+        <a href="#contact">Contact us</a>
+      </div>
+
+      <hr class="policy-divider">
+
+      <h2 id="who-we-are">1. Who we are</h2>
+      <p>FF Motor House Ltd is a used car dealership based at Unit 1, 38 Lee Street, Oldham, Greater Manchester,
+      OL8 1EF (Company registration number: 17221152, ICO registration number: ZC208812). We act as the "data
+      controller" for the personal information you provide to us directly.</p>
+
+      <h2 id="information-we-collect">2. Information we collect</h2>
+      <p>We may collect and process the following information about you:</p>
+      <ul>
+        <li>Contact details, such as your name, email address, phone number and postal address</li>
+        <li>Enquiry and communication details, such as messages sent through our contact form, phone calls or email</li>
+        <li>Vehicle interest information, such as which car you enquired about or reserved</li>
+        <li>Finance application details, if you choose to apply for finance (handled by our finance partner, see Section 4)</li>
+        <li>Technical information, such as your IP address, browser type and pages visited, collected automatically via cookies and similar technologies</li>
+      </ul>
+
+      <h2 id="how-we-use-it">3. How we use your information</h2>
+      <p>We use your personal information to:</p>
+      <ul>
+        <li>Respond to your enquiries and provide the information or services you have requested</li>
+        <li>Arrange vehicle viewings, reservations and sales</li>
+        <li>Introduce you to our finance partner where you have asked to explore finance options</li>
+        <li>Comply with our legal and regulatory obligations, including FCA requirements relating to credit broking</li>
+        <li>Improve our website and services, and understand how visitors use our site</li>
+      </ul>
+
+      <h2 id="third-parties">4. Third parties we work with</h2>
+      <p>We only share your personal information with third parties where necessary to provide our services, or
+      where we are required to do so by law. The main third party we work with is:</p>
+
+      <div class="policy-callout">
+        <p><strong>Jigsaw Finance</strong> — FF Motor House Ltd (FRN 1062916) is an Introducer Appointed
+        Representative of Jigsaw Finance Limited, which is authorised and regulated by the Financial Conduct
+        Authority (FRN 679612). Jigsaw Finance Limited is a credit broker, not a lender.</p>
+        <p>If you choose to apply for finance, your information will be passed to Jigsaw Finance so that they can
+        assess your application and, where relevant, introduce you to a suitable lender. Jigsaw Finance processes
+        this information under its own privacy policy, available at:
+        <a href="https://www.jigsawfinance.com/privacy-policy" target="_blank" rel="noopener noreferrer">
+          www.jigsawfinance.com/privacy-policy</a>. We recommend you read this policy before submitting a finance
+        application, and it is also linked in our application form and website footer.</p>
+      </div>
+
+      <p>Other third parties we may share limited information with include:</p>
+      <ul>
+        <li>Vehicle history and HPI check providers, to verify vehicle records</li>
+        <li>IT and hosting providers, who help us run our website and store data securely</li>
+        <li>Regulatory bodies, such as the Financial Conduct Authority (FCA) or Information Commissioner's Office (ICO), where legally required</li>
+      </ul>
+      <p>We do not sell your personal information to third parties.</p>
+
+      <h2 id="cookies">5. Cookies</h2>
+      <p>Our website may use cookies and similar technologies to help it function properly and to understand how
+      visitors use the site. You can control or delete cookies through your browser settings at any time.</p>
+
+      <h2 id="data-retention">6. Data retention</h2>
+      <p>We keep your personal information only for as long as necessary to fulfil the purposes described in this
+      policy, including any legal, accounting or regulatory requirements, such as those set by the FCA.</p>
+
+      <h2 id="your-rights">7. Your rights</h2>
+      <p>Under UK data protection law, you have the right to:</p>
+      <ul>
+        <li>Request access to the personal information we hold about you</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your information, in certain circumstances</li>
+        <li>Object to or restrict how we use your information</li>
+        <li>Withdraw consent, where we rely on consent to process your information</li>
+        <li>Lodge a complaint with the Information Commissioner's Office (ICO) at
+          <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a></li>
+      </ul>
+      <p>To exercise any of these rights, please contact us using the details in Section 10.</p>
+
+      <h2 id="security">8. Security</h2>
+      <p>We take reasonable technical and organisational measures to protect your personal information against
+      unauthorised access, loss or misuse.</p>
+
+      <h2 id="changes">9. Changes to this policy</h2>
+      <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an
+      updated revision date at the top.</p>
+
+      <h2 id="contact">10. Contact us</h2>
+      <p>If you have any questions about this Privacy Policy or how we handle your personal information, please
+      get in touch:</p>
+      <div class="contact-box">
+        <p><strong>FF Motor House Ltd</strong></p>
+        <p>Unit 1, 38 Lee Street, Oldham, Greater Manchester, OL8 1EF</p>
+        <p>Email: <a href="mailto:info@ffmotorhouse.com">info@ffmotorhouse.com</a></p>
+        <p>Phone: <a href="tel:+447591929767">07591 929767</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p class="footer-intro">FF Motor House Ltd is an Introducer Appointed Representative of Jigsaw Finance Limited, authorised and regulated by the FCA.</p>
+      <div class="footer-bottom">
+        <p>© <span id="year">2026</span> FF Motorhouse. All rights reserved.</p>
+        <p><a href="privacy-policy.html">Privacy Policy</a> · <a href="index.html#footer">Back to site</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
