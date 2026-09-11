@@ -929,8 +929,8 @@
     }
     .footer-inner {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 60px;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
       margin-bottom: 52px;
     }
     .footer-brand .nav-logo {
@@ -991,6 +991,42 @@
     .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
     .footer-bottom a { color: rgba(255,255,255,0.42); transition: color 0.2s; }
     .footer-bottom a:hover { color: #fff; }
+
+    /* ── Regulatory footer ── */
+    .footer-regulatory {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 28px 0 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-regulatory p {
+      font-size: 0.76rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.4);
+      max-width: 920px;
+    }
+    .footer-regulatory a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s;
+    }
+    .footer-regulatory a:hover { color: #fff; }
+    .footer-compliance-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      margin-top: 2px;
+    }
+    .footer-compliance-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+    .footer-compliance-links a:hover { color: #fff; border-color: #fff; }
 
     /* ══ Responsive ═════════════════════════════════════ */
     @media (max-width: 1150px) {
@@ -1288,6 +1324,7 @@
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#reviews">Reviews</a></li>
         <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="https://applications.jigsawfinance.com/ff-motor-house-ltd-1789060748810/" target="_blank" rel="noopener noreferrer">Apply for Finance</a></li>
       </ul>
 
       <div class="nav-right">
@@ -1314,6 +1351,10 @@
         </p>
         <div class="stock-meta">
           <span id="stock-count">Loading stock…</span>
+          <a href="https://applications.jigsawfinance.com/ff-motor-house-ltd-1789060748810/" class="stock-back" target="_blank" rel="noopener noreferrer">
+            Apply for finance
+            <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
           <a href="index.html#featured" class="stock-back">
             <svg width="16" height="16" aria-hidden="true" style="transform:scaleX(-1)"><use href="#i-arrow"></use></svg>
             Back to home
@@ -1581,6 +1622,31 @@
             <li class="footer-note">Mon–Sat 10–5 · Sun 10–3</li>
           </ul>
         </div>
+
+        <div class="footer-col">
+          <h4>Finance</h4>
+          <ul>
+            <li><a href="https://applications.jigsawfinance.com/ff-motor-house-ltd-1789060748810/" target="_blank" rel="noopener noreferrer">Apply for Finance</a></li>
+            <li><a href="https://complaints-jigsaw.tiiny.co" target="_blank" rel="noopener noreferrer">Complaints Policy</a></li>
+            <li><a href="https://initial-disclosure-document-ffmotor.tiiny.co" target="_blank" rel="noopener noreferrer">Initial Disclosure Document</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-regulatory">
+        <p>
+          FF MOTOR HOUSE LTD (FRN 1062916) is an Introducer Appointed Representative of Jigsaw Finance Limited, which is authorised and regulated by the Financial Conduct Authority. FRN 679612. Jigsaw Finance Limited is a credit broker and not a lender.
+        </p>
+        <p>
+          Address: Unit 1, 38 Lee Street, Oldham, Greater Manchester, OL8 1EF &nbsp;·&nbsp; Email: <a href="mailto:info@ffmotorhouse.com">info@ffmotorhouse.com</a>
+        </p>
+        <p>
+          Company registration number: 17221152 &nbsp;·&nbsp; ICO registration number: ZC208812
+        </p>
+        <p class="footer-compliance-links">
+          <a href="https://complaints-jigsaw.tiiny.co" target="_blank" rel="noopener noreferrer">Complaints Policy</a>
+          <a href="https://initial-disclosure-document-ffmotor.tiiny.co" target="_blank" rel="noopener noreferrer">Initial Disclosure Document</a>
+        </p>
       </div>
 
       <div class="footer-bottom">
