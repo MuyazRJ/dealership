@@ -26,8 +26,8 @@ window.CARS = [
     trim: "1.2 VTi PureTech Allure Top! Euro 5 5dr",
     price: 3495, mileage: 78418, fuel: "Petrol", gearbox: "Manual",
     images: [
-      "https://drive.google.com/uc?export=view&id=1uYa-T0rqndpNcIaB71D1DzzLCZa8yDCR",
-      "https://drive.google.com/uc?export=view&id=15JDb4mYdrA8qKvXOj6i0WWctAhiVz5ip"
+      "https://drive.google.com/file/d/15JDb4mYdrA8qKvXOj6i0WWctAhiVz5ip",
+      "https://drive.google.com/file/d/1uYa-T0rqndpNcIaB71D1DzzLCZa8yDCR"
     ],
     featured: true,
     flag: "Just arrived",
