@@ -1232,6 +1232,10 @@
       }
       .reveal { opacity: 1; transform: none; }
     }
+  
+    /* Whole car card is clickable */
+    .car-card { position: relative; }
+    .btn-card::after { content: ''; position: absolute; inset: 0; border-radius: var(--r-xl); }
   </style>
 </head>
 <body>
@@ -1372,179 +1376,7 @@
           </a>
         </div>
 
-        <div class="car-grid">
-
-          <!-- Car 0 -->
-          <article class="car-card reveal">
-            <div class="media car-media">
-              <img src="images/car-0.jpg" alt="2014 Peugeot 108" loading="lazy">
-              <span class="car-flag car-flag--new">Just arrived</span>
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2014 Peugeot 108</h3>
-              <p class="car-trim">1.2 VTi PureTech Allure Top! Euro 5 5dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">78,418 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Petrol</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Manual</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£3,495</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202610076748720?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=ee9cf888-05a6-4b9b-b2f7-d01c6801df84&page=1&postcode=OL1+2UA&advertising-location=at_cars&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising_location%3Dat_cars%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=350&calc-term=48&calc-mileage=10000&calc-selected-product=PCP" target="_blank" rel="noopener noreferrer" aria-label="View the 2014 Peugeot 108 on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Car 1 -->
-          <article class="car-card reveal">
-            <div class="media car-media">
-              <img src="images/car-1.jpg" alt="2010 Mercedes-Benz C Class" loading="lazy">
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2010 Mercedes-Benz C Class</h3>
-              <p class="car-trim">1.8 C250 BlueEfficiency Sport Auto Euro 5 4dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">73,300 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Petrol</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Automatic</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£3,995</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202609065776172?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=ee9cf888-05a6-4b9b-b2f7-d01c6801df84&page=1&postcode=OL1+2UA&advertising-location=at_cars&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising_location%3Dat_cars%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=400&calc-term=48&calc-mileage=10000&calc-selected-product=PCP" target="_blank" rel="noopener noreferrer" aria-label="View the 2010 Mercedes-Benz C Class on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Car 2 -->
-          <article class="car-card reveal reveal-delay-1">
-            <div class="media car-media">
-              <img src="images/car-2.jpg" alt="2015 SEAT Ibiza" loading="lazy">
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2015 SEAT Ibiza</h3>
-              <p class="car-trim">1.2 TSI FR Euro 5 5dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">78,328 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Petrol</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Manual</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£4,495</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202610076749411?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=ee9cf888-05a6-4b9b-b2f7-d01c6801df84&page=1&postcode=OL1+2UA&advertising-location=at_cars&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising_location%3Dat_cars%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=450&calc-term=48&calc-mileage=10000&calc-selected-product=PCP" target="_blank" rel="noopener noreferrer" aria-label="View the 2015 SEAT Ibiza on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Car 3 -->
-          <article class="car-card reveal reveal-delay-2">
-            <div class="media car-media">
-              <img src="images/car-3.jpg" alt="2016 Ford Focus 1.0T EcoBoost" loading="lazy">
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2016 Ford Focus</h3>
-              <p class="car-trim">1.0T EcoBoost Titanium Euro 6 (s/s) 5dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">64,500 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Petrol</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Manual</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£4,749</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202609065776130?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=2ca4e9de-4fd2-496e-ab2a-5c899365387b&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=500&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2016 Ford Focus on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Car 5 -->
-          <article class="car-card reveal reveal-delay-1">
-            <div class="media car-media">
-              <img src="images/car-5.jpg" alt="2019 Toyota AYGO" loading="lazy">
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2019 Toyota AYGO</h3>
-              <p class="car-trim">1.0 VVT-i x-press Euro 6 5dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">54,661 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Petrol</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Manual</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£7,495</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202610076749005?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=ee9cf888-05a6-4b9b-b2f7-d01c6801df84&page=1&postcode=OL1+2UA&advertising-location=at_cars&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising_location%3Dat_cars%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=750&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2018 Audi SQ5 on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Car 6 -->
-          <article class="car-card reveal reveal-delay-2">
-            <div class="media car-media">
-              <img src="images/car-6.jpg" alt="2019 Audi A6 Avant" loading="lazy">
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2019 Audi A6 Avant</h3>
-              <p class="car-trim">2.0 320d M Sport Auto xDrive Euro 5 (s/s) 4dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">39,548 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Diesel</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Automatic</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£21,249</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202609115966261?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=ee9cf888-05a6-4b9b-b2f7-d01c6801df84&page=1&postcode=OL1+2UA&advertising-location=at_cars&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising_location%3Dat_cars%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=2125&calc-term=48&calc-mileage=10000&calc-selected-product=PCP" target="_blank" rel="noopener noreferrer" aria-label="View the 2019 Audi A6 Avant on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Car 7 -->
-          <article class="car-card reveal reveal-delay-2">
-            <div class="media car-media">
-              <img src="images/car-7.jpg" alt="2018 BMW 1 Series" loading="lazy">
-            </div>
-            <div class="car-body">
-              <h3 class="car-name">2018 BMW 1 Series</h3>
-              <p class="car-trim">3.0 M140i Shadow Edition Auto Euro 6 (s/s) 3dr</p>
-              <ul class="car-specs">
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gauge"></use></svg><span class="spec-val">77,500 miles</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-fuel"></use></svg><span class="spec-val">Petrol</span></li>
-                <li><svg class="spec-ico" aria-hidden="true"><use href="#i-gear"></use></svg><span class="spec-val">Automatic</span></li>
-              </ul>
-              <div class="car-price">
-                <span class="car-price-label">Pay in full</span>
-                <span class="car-price-val">£17,749</span>
-              </div>
-              <a class="btn-card" href="https://www.autotrader.co.uk/car-details/202607294627719?journey=DEALER_STOCK_LIST_JOURNEY&sort=price-asc&twcs=true&searchId=cf8a8714-7175-4d4e-a6d5-61f5ff3d7345&advertising-location=at_profile_cars&advertising-location=at_cars&page=1&postcode=OL1+2UA&fromsra=&fromDealerSearchResults=&backLinkQueryParams=advertising-location%3Dat_cars%26advertising-location%3Dat_profile_cars%26onesearchad%3DUsed%26onesearchad%3DNearly%2520New%26onesearchad%3DNew%26postcode%3DOL1%25202UA%26retailerId%3D10050367%26sort%3Dprice-asc%26flrfc%3D1&calc-deposit=1800&calc-term=48&calc-mileage=10000&calc-selected-product=HP" target="_blank" rel="noopener noreferrer" aria-label="View the 2018 BMW 1 Series on Auto Trader">
-                View car
-                <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </a>
-            </div>
-          </article>
-
-
-        </div>
+        <div class="car-grid" data-car-grid="featured" data-reveal></div>
 
         <!-- Carousel controls (mobile) -->
         <div class="car-carousel-nav">
@@ -1799,6 +1631,8 @@
     </div>
   </footer>
 
+  <script src="cars.js?v=2"></script>
+  <script src="site.js?v=2"></script>
   <script>
     // ── Nav: scrolled state ──
     const nav = document.getElementById('nav');
