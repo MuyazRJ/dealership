@@ -2,10 +2,13 @@
 
    ADD A CAR     Copy any block below, paste it at the TOP of the list, change the details, save.
                  The stock page, homepage card and its own car page all appear automatically.
+
    REMOVE A CAR  Delete its block.
+
    PHOTOS        Put them in /images/ and list them in `images` (first one is the card photo).
 
    Required : year, make, model, trim, price, mileage, fuel, gearbox, images
+
    Optional : featured:true      show on the homepage
               flag:"Just arrived" badge on the photo
               autotrader:"url"   adds a "View on Auto Trader" link
@@ -22,7 +25,10 @@ window.CARS = [
     year: 2014, make: "Peugeot", model: "108",
     trim: "1.2 VTi PureTech Allure Top! Euro 5 5dr",
     price: 3495, mileage: 78418, fuel: "Petrol", gearbox: "Manual",
-    images: ["images/car-0.jpg","images/car-0-1.jpg","images/car-0-2.jpg"],
+    images: [
+      "https://drive.google.com/uc?export=view&id=1uYa-T0rqndpNcIaB71D1DzzLCZa8yDCR",
+      "https://drive.google.com/uc?export=view&id=15JDb4mYdrA8qKvXOj6i0WWctAhiVz5ip"
+    ],
     featured: true,
     flag: "Just arrived",
     autotrader: "https://www.autotrader.co.uk/car-details/202610076748720",
