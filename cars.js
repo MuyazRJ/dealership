@@ -22,7 +22,7 @@ window.CARS = [
     year: 2014, make: "Peugeot", model: "108",
     trim: "1.2 VTi PureTech Allure Top! Euro 5 5dr",
     price: 3495, mileage: 78418, fuel: "Petrol", gearbox: "Manual",
-    images: ["images/car-0-1.jpg","images/car-0-2.jpg", "https://drive.google.com/file/d/15JDb4mYdrA8qKvXOj6i0WWctAhiVz5ip"],
+    images: ["images/car-0-1.jpg","images/car-0-2.jpg"],
     featured: true,
     flag: "Just arrived",
     autotrader: "https://www.autotrader.co.uk/car-details/202610076748720",
